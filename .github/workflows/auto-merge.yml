@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   merge:
@@ -33,3 +34,9 @@ jobs:
           git fetch origin
           git merge origin/develop --no-edit
           git push origin main
+
+      - name: Trigger CI on main   # ✅ THIS FIXES YOUR ISSUE
+        run: |
+          gh workflow run "CI - Backend & Frontend Tests" --ref main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
