@@ -37,13 +37,13 @@ jobs:
         working-directory: backend/springbootapp/springbootapp
         run: mvn -B clean test
 
-      - name: Publish Backend Test Result
-        if: always()
-        uses: mikepenz/action-junit-report@v4
-        with:
-          report_paths: backend/springbootapp/springbootapp/target/surefire-reports/*.xml
-          detailed_summary: true
-          include_passed: true
+      # - name: Publish Backend Test Result
+      #   if: always()
+      #   uses: mikepenz/action-junit-report@v4
+      #   with:
+      #     report_paths: backend/springbootapp/springbootapp/target/surefire-reports/*.xml
+      #     detailed_summary: true
+      #     include_passed: true
 
   test-frontend:
     name: Frontend Tests
@@ -67,10 +67,10 @@ jobs:
         working-directory: frontend/ionicapp
         run: npm test -- --watch=false --browsers=ChromeHeadless
 
-      - name: Publish Frontend Test Results
-        if: always()
-        uses: mikepenz/action-junit-report@v4
-        with:
-          report_paths: frontend/ionicapp/test-results/*.xml
-          detailed_summary: true
-          include_passed: true
+      # - name: Publish Frontend Test Results
+      #   if: always()
+      #   uses: mikepenz/action-junit-report@v4
+      #   with:
+      #     report_paths: frontend/ionicapp/test-results/*.xml
+      #     detailed_summary: true
+      #     include_passed: true
