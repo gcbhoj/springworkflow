@@ -71,6 +71,6 @@ jobs:
         if: always()
         uses: mikepenz/action-junit-report@v4
         with:
-          report_paths: frontend/ionicapp/test-results/*.xml
+          report_paths: frontend/ionicapp/coverage/*.xml
           detailed_summary: true
           include_passed: true
