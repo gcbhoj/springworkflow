@@ -85,7 +85,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-test-results
-          path: frontend/ionicapp/test-results/
+          path: reports/frontend
 
       - name: Publish JUnit Report
         uses: mikepenz/action-junit-report@v4
