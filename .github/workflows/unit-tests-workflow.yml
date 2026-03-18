@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backend-test-results
-          path: target/surefire-reports/*.xml
+          path: backend/springbootapp/springbootapp/target/surefire-reports/
 
   publish-results:
     name: Publish Test Report
