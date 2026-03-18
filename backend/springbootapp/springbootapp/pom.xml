@@ -87,6 +87,7 @@
             <artifactId>spring-boot-starter-webservices-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -116,6 +117,8 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
+
 
 </project>
