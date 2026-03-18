@@ -2,6 +2,7 @@ name: Publish Results
 
 on:
   workflow_call:
+    inputs: {}
 
 permissions:
   contents: read
