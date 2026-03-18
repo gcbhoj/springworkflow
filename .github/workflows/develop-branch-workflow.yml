@@ -14,4 +14,4 @@ jobs:
 
   publish-results:
     needs: run-tests
-    uses: ./.github/workflows/publish-results.yml
+    uses: ./.github/workflows/publish-test-results.yml
