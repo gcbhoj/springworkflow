@@ -1,5 +1,6 @@
 package com.bhoj.springbootapp.services;
 
+import com.bhoj.springbootapp.DTO.RegistrationRequest;
 import com.bhoj.springbootapp.beans.User;
 import com.bhoj.springbootapp.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -24,21 +25,28 @@ class UserServicesTest {
 
     @Test
     void saveUser_ShouldReturnSavedUser() {
-
-        User user = User.builder()
-                .id("1")
+        // Arrange
+        RegistrationRequest request = RegistrationRequest.builder()
                 .firstName("test")
-                .email("test@test.com")
+                .email("test@example.com")
                 .build();
 
-        when(userRepository.save(user)).thenReturn(user);
+        User savedUser = User.builder()
+                .firstName("test")
+                .email("test@example.com")
+                .build();
 
-        User result = userServices.saveUser(user);
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
+        // Act
+        User result = userServices.saveUser(request);
+
+        // Assert
         assertNotNull(result);
-        assertEquals("test@test.com", result.getEmail());
+        assertEquals("test@example.com", result.getEmail());
+        assertEquals("test", result.getFirstName());
 
-        verify(userRepository, times(1)).save(user);
+        verify(userRepository, times(1)).save(any(User.class));
     }
 
     @Test

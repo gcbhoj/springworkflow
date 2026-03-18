@@ -1,9 +1,11 @@
 package com.bhoj.springbootapp.services;
 
+import com.bhoj.springbootapp.DTO.RegistrationRequest;
 import com.bhoj.springbootapp.beans.User;
 import com.bhoj.springbootapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +16,12 @@ public class UserServices {
 
     private final UserRepository userRepo;
 
-    public User saveUser(User user) {
+    public User saveUser(RegistrationRequest request) {
+
+        User user = new User();
+        user.setFirstName(request.getFirstName());
+        user.setEmail(request.getEmail());
+
         return userRepo.save(user);
     }
 
