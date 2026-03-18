@@ -6,9 +6,11 @@ on:
       - "feature/*"
       - develop
       - main
+      - "version/*"
   pull_request:
     branches:
       - develop
+      - "version/*"
       - main
   workflow_dispatch: 
 
