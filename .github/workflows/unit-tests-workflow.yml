@@ -28,6 +28,7 @@ jobs:
           cache: "maven"
 
       - name: Run Backend Tests
+        working-directory: backend/springbootapp/springbootapp
         run: mvn -B clean test
 
       - name: Upload Backend Test Results
