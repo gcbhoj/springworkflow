@@ -6,12 +6,14 @@ on:
       - "feature/*"
       - develop
       - main
+      - testing
       - "version/*"
   pull_request:
     branches:
       - develop
       - "version/*"
       - main
+      - testing
   workflow_dispatch: 
 
 permissions:
