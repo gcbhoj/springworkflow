@@ -35,7 +35,7 @@ jobs:
           git merge origin/develop --no-edit
           git push origin testing
 
-      - name: Trigger CI on main   # ✅ THIS FIXES YOUR ISSUE
+      - name: Trigger CI on testing   # ✅ THIS FIXES YOUR ISSUE
         run: |
           gh workflow run "CI - Backend & Frontend Tests" --ref testing
         env:
