@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - testing
+  workflow_run:
+    workflows: ["CI - Backend & Frontend Tests"]
+    types:
+      - completed
 
   pull_request:
     branches:
