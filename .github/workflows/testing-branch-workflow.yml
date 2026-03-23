@@ -26,15 +26,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # - name: Run Postman Collection
-      #   uses: SimonScholz/postman-newman-action@v1
-      #   with:
-      #     collection: "./collections/zipcart_collection.json"
+      - name: Run Postman Collection
+        uses: SimonScholz/postman-newman-action@v1
+        with:
+          collection: "./collections/zipcart_collection.json"
 
-      # ✅ TEMP TEST STEP
-      - name: Simulate API Tests
-        run: |
-          echo "Running Postman API tests..."
-          echo "Collection loaded successfully"
-          echo "All API tests passed"
-          echo "Testing workflow completed ✅"
+      # # ✅ TEMP TEST STEP
+      # - name: Simulate API Tests
+      #   run: |
+      #     echo "Running Postman API tests..."
+      #     echo "Collection loaded successfully"
+      #     echo "All API tests passed"
+      #     echo "Testing workflow completed ✅"
