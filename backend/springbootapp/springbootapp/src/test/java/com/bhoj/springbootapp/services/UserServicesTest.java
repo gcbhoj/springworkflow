@@ -53,7 +53,7 @@ class UserServicesTest {
     void getUserById_ShouldReturnUser() {
 
         User user = User.builder()
-                .id("1")
+                .userId("1")
                 .firstName("test")
                 .email("test@test.com")
                 .build();
