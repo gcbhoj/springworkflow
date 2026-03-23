@@ -60,4 +60,4 @@ jobs:
       - name: Run API tests
         run: |
           newman run ./collections/zipcart_collection \
-          --env-var baseUrl=http://localhost:5000/api/v1/
+          --env-var url=http://localhost:5000/api/v1/
