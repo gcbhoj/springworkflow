@@ -5,13 +5,16 @@ on:
     branches:
       - "feature/*"
       - develop
+      # - main
+      - testing
       - "version/*"
   pull_request:
     branches:
       - develop
       - "version/*"
-      - main
-  workflow_dispatch:
+      # - main
+      - testing
+  workflow_dispatch: 
 
 permissions:
   contents: read
@@ -19,6 +22,7 @@ permissions:
   pull-requests: write
 
 jobs:
+
   test-backend:
     name: Backend Tests
     runs-on: ubuntu-latest
