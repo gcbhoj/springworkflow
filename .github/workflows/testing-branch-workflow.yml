@@ -29,7 +29,7 @@ jobs:
       # - name: Run Postman Collection
       #   uses: SimonScholz/postman-newman-action@v1
       #   with:
-      #     collection: "./collections/user-collection.json"
+      #     collection: "./collections/zipcart_collection.json"
 
       # ✅ TEMP TEST STEP
       - name: Simulate API Tests
