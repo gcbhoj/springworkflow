@@ -3,7 +3,8 @@ name: Testing Branch Workflow
 on:
   push:
     branches:
-      - testing
+      - main
+
   workflow_run:
     workflows: ["CI - Backend & Frontend Tests"]
     types:
@@ -11,30 +12,52 @@ on:
 
   pull_request:
     branches:
-      - testing
+      - main
 
 permissions:
   contents: write
   actions: write
 
 jobs:
-  postman-newman-action:
-    name: Run Postman Newman GitHub Actions
+  api-tests:
     runs-on: ubuntu-latest
+
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # - name: Run Postman Collection
-      #   uses: SimonScholz/postman-newman-action@v1
-      #   with:
-      #     collection: "./collections/zipcart_collection.json"
+      # Setup Java (REQUIRED for Spring Boot)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-      # ✅ TEMP TEST STEP
-      - name: Simulate API Tests
+      # Start Backend
+      - name: Start Backend
         run: |
-          echo "Running Postman API tests..."
-          echo "Collection loaded successfully"
-          echo "All API tests passed"
-          echo "Testing workflow completed ✅"
+          cd backend/springbootapp/springbootapp
+          mvn clean install -DskipTests
+          mvn spring-boot:run &
+      
+      # Wait for backend
+      - name: Wait for backend to start
+        run: sleep 25
+
+      # Setup Node (stable version)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Install Newman
+      - name: Install Newman
+        run: npm install -g newman
+
+      # Run API tests (FIXED)
+      - name: Run API tests
+        run: |
+          newman run ./collections/zipcart_collection \
+          --env-var baseUrl=http://localhost:5000/api/v1/
