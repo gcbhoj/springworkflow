@@ -19,7 +19,18 @@
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});"
+                  "});\r",
+                  "\r",
+                  "const jsonData = pm.response.json();\r",
+                  "const userId = jsonData.userId;\r",
+                  "\r",
+                  "pm.test(\"User ID is returned\", function () {\r",
+                  "    pm.expect(userId).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "// Store globally for next requests\r",
+                  "pm.variables.set(\"userId\", userId);\r",
+                  ""
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -199,7 +210,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}/user/getUserById?userId=b9073a15-e51f-4842-950f-37faa9c63fa8",
+              "raw": "{{url}}/user/getUserById?userId={{userId}}",
               "host": [
                 "{{url}}"
               ],
@@ -210,7 +221,7 @@
               "query": [
                 {
                   "key": "userId",
-                  "value": "b9073a15-e51f-4842-950f-37faa9c63fa8"
+                  "value": "{{userId}}"
                 }
               ]
             }
@@ -287,6 +298,11 @@
     {
       "key": "url",
       "value": "http://localhost:5000/api/v1"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "disabled": true
     }
   ]
 }

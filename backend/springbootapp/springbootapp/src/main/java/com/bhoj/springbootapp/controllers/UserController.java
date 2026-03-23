@@ -17,11 +17,11 @@ public class UserController {
     private final UserServices userService;
 
     @PostMapping("/user-register")
-    public ResponseEntity<String> addNewUser(@Valid @RequestBody RegistrationRequest request) {
+    public ResponseEntity<User> addNewUser(@Valid @RequestBody RegistrationRequest request) {
 
-        userService.saveUser(request);
+       User user =  userService.saveUser(request);
 
-        return ResponseEntity.ok("User added successfully");
+        return ResponseEntity.ok(user);
     }
     @GetMapping("/getUserById")
     public ResponseEntity<User> getUserById(@RequestParam String userId){
