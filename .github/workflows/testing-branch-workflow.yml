@@ -3,11 +3,11 @@ name: Testing Branch Workflow
 on:
   push:
     branches:
-      - testing
+      - main
 
   pull_request:
     branches:
-      - testing
+      - main
 
   workflow_run:
     workflows: ["CI - Backend & Frontend Tests"]
