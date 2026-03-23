@@ -43,9 +43,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Install Newman
         run: npm install -g newman
 
       - name: Run API tests
-        run: newman run ./collections/zipcart_collections.json
-      
+        run: newman run ./collections/zipcart_collection.json
