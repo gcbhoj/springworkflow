@@ -40,11 +40,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}user/user-register",
+              "raw": "{{url}}/user/user-register",
               "host": [
-                "{{url}}user"
+                "{{url}}"
               ],
               "path": [
+                "user",
                 "user-register"
               ]
             }
@@ -81,11 +82,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}user/user-register",
+              "raw": "{{url}}/user/user-register",
               "host": [
-                "{{url}}user"
+                "{{url}}"
               ],
               "path": [
+                "user",
                 "user-register"
               ]
             }
@@ -122,11 +124,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}user/user-register",
+              "raw": "{{url}}/user/user-register",
               "host": [
-                "{{url}}user"
+                "{{url}}"
               ],
               "path": [
+                "user",
                 "user-register"
               ]
             }
@@ -163,11 +166,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}user/user-register",
+              "raw": "{{url}}/user/user-register",
               "host": [
-                "{{url}}user"
+                "{{url}}"
               ],
               "path": [
+                "user",
                 "user-register"
               ]
             }
@@ -195,11 +199,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}user/getUserById?userId=b9073a15-e51f-4842-950f-37faa9c63fa8",
+              "raw": "{{url}}/user/getUserById?userId=b9073a15-e51f-4842-950f-37faa9c63fa8",
               "host": [
-                "{{url}}user"
+                "{{url}}"
               ],
               "path": [
+                "user",
                 "getUserById"
               ],
               "query": [
@@ -233,11 +238,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}user/getUserById?userId=b9073a15-e51f-4842-950f-37faa9c63f",
+              "raw": "{{url}}/user/getUserById?userId=b9073a15-e51f-4842-950f-37faa9c63f",
               "host": [
-                "{{url}}user"
+                "{{url}}"
               ],
               "path": [
+                "user",
                 "getUserById"
               ],
               "query": [
@@ -280,8 +286,7 @@
   "variable": [
     {
       "key": "url",
-      "value": "",
-      "type": "default"
+      "value": ""
     }
   ]
 }
