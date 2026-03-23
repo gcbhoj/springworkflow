@@ -28,6 +28,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Debug file structure
+        run: ls -R
+
       - name: Node Installation
         uses: actions/setup-node@v4
         with:
