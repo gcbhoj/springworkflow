@@ -18,9 +18,10 @@ public class UserServices {
 
     public User saveUser(RegistrationRequest request) {
 
-        User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setEmail(request.getEmail());
+        User user = User.builder()
+                .firstName(request.getFirstName())
+                .email(request.getEmail())
+                .build();
 
         return userRepo.save(user);
     }
