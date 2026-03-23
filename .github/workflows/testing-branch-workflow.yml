@@ -19,40 +19,45 @@ permissions:
   actions: write
 
 jobs:
-  build:
+  api-tests:
     runs-on: ubuntu-latest
+
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Setup Java (REQUIRED for Spring Boot)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Start Backend
       - name: Start Backend
         run: |
           cd backend/springbootapp/springbootapp
+          mvn clean install -DskipTests
           mvn spring-boot:run &
+      
+      # Wait for backend
       - name: Wait for backend to start
-        run: sleep 20
+        run: sleep 25
 
-      - name: Node Installation
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-
-  postman-newman-action:
-    name: Run Postman Newman GitHub Actions
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
+      # Setup Node (stable version)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "20"
 
+      # Install Newman
       - name: Install Newman
         run: npm install -g newman
 
+      # Run API tests (FIXED)
       - name: Run API tests
-        run: newman run ./collections/zipcart_collection \ --env-var url = http://localhost:5000/api/v1
+        run: |
+          newman run ./collections/zipcart_collection \
+          --env-var baseUrl=http://localhost:5000/api/v1/
