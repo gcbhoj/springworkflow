@@ -59,5 +59,4 @@ jobs:
       # Run API tests (FIXED)
       - name: Run API tests
         run: |
-          newman run ./collections/zipcart_collection \
-          --env-var url=http://localhost:5000/api/v1/
+          newman run ./collections/zipcart_collection
