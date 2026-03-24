@@ -6,6 +6,7 @@ import com.bhoj.springbootapp.repository.RetailerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,14 @@ public class RetailerService {
 
     public Optional<Retailer> getRetailerById(String id){
         return  retailerRepo.findById(id);
+    }
+
+    public Optional<Retailer> fetchRetailerByName(String retailerName){
+        return retailerRepo.findByRetailerName(retailerName);
+    }
+
+    public List<Retailer> getAllRetailers(){
+        return  retailerRepo.findAll();
     }
 
 

@@ -9,6 +9,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,5 +35,10 @@ public class RetailerController {
         return retailerService.getRetailerById(retailerId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Retailer>> getAllRetailers() {
+        return ResponseEntity.ok(retailerService.getAllRetailers());
     }
 }

@@ -16,15 +16,22 @@ import java.util.List;
 @Entity
 @Table(name = "packaged_products")
 public class PackagedProduct extends Product{
+
+    @Column(nullable = false)
     private String upc;
+
+    @Column(nullable = false)
     private String packageWeight;
+
     @ElementCollection
     @CollectionTable(
             name = "product_ingredients",
             joinColumns = @JoinColumn(
                     name = "product_id"))
     private List<Ingredients> ingredients;
+
     private LocalDateTime manufacturedDate;
+
     private LocalDateTime expiryDate;
     private String manufacturer;
     private String manufacturedIn;
