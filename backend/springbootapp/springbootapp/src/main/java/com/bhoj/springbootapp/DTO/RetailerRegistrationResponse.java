@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder
-public class RegisterRetailerRequest {
+public class RetailerRegistrationResponse {
 
-    private String retailerName;
-    private String retailerURL;
+    private  String retailerId;
+    private String message;
 }

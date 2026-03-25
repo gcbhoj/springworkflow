@@ -4,6 +4,7 @@ import com.bhoj.springbootapp.DTO.RegistrationRequest;
 import com.bhoj.springbootapp.DTO.RegistrationResponse;
 import com.bhoj.springbootapp.DTO.UserProfile;
 import com.bhoj.springbootapp.beans.User;
+import com.bhoj.springbootapp.enums.UserStatus;
 import com.bhoj.springbootapp.exceptionHandler.BadRequestException;
 import com.bhoj.springbootapp.exceptionHandler.UserCreationException;
 import com.bhoj.springbootapp.repository.UserRepository;
@@ -50,11 +51,11 @@ public class UserServicesImpl implements UserService {
     @Override
     public UserProfile getUserById(String userId) {
         if(userId == null || userId.isBlank()){
-            throw new BadRequestException("USER ID IS REQUIRED");
+            throw new UserCreationException("USER ID IS REQUIRED");
         }
 
         User user = userRepo.findById(userId)
-                .orElseThrow(()-> new RuntimeException("USER NOT FOUND BY GIVEN ID"));
+                .orElseThrow(()-> new UserCreationException("USER NOT FOUND BY GIVEN ID"));
 
         return UserProfile.builder()
                 .userId(user.getUserId())
@@ -78,7 +79,7 @@ public class UserServicesImpl implements UserService {
         String userId = profile.getUserId();
 
         User user = userRepo.findById(userId)
-                .orElseThrow(() -> new BadRequestException("INVALID USER ID"));
+                .orElseThrow(() -> new UserCreationException("INVALID USER ID"));
 
         // update fields
         user.setFirstName(profile.getFirstName());
@@ -92,7 +93,23 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public String deactivateAccount(String userId) {
-        return "";
+
+        if (userId == null || userId.isBlank()) {
+            throw new UserCreationException("USER ID IS REQUIRED");
+        }
+
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new UserCreationException("NO USER FOUND BY GIVEN ID"));
+
+        if (user.getStatus() == UserStatus.DEACTIVATED) {
+            return "ACCOUNT IS ALREADY DEACTIVATED";
+        }
+
+        user.setStatus(UserStatus.DEACTIVATED);
+
+        userRepo.save(user);
+
+        return "ACCOUNT HAS BEEN DEACTIVATED SUCCESSFULLY";
     }
 
 }

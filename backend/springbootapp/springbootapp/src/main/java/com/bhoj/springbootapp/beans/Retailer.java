@@ -26,12 +26,18 @@ public class Retailer {
     private String retailerWebURL;
 
     @Enumerated (EnumType.STRING)
-    private RetailerStatus status;
+    @Builder.Default
+    private RetailerStatus status = RetailerStatus.ACTIVE;
 
     private LocalDateTime activationDate;
 
     private LocalDateTime lastUpdated;
     private LocalDateTime deactivationDate;
+
+
+    @Version
+    @Builder.Default
+    private Long version = 0L;
 
     @OneToMany(
             mappedBy = "retailer",

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Builder
 public class UserProfile {
-
+    @NotEmpty(message = "USER ID CANNOT BE BLANK")
     private String userId;
     @NotEmpty(message = "FIRST NAME CANNOT BE BLANK")
     private String firstName;

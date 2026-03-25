@@ -56,16 +56,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleGenericException(Exception exp) {
 
         return ResponseEntity
-                .status(INTERNAL_SERVER_ERROR)
+                .status(BAD_REQUEST)
                 .body(ExceptionResponse.builder()
-                        .businessErrorDescription("Contact admin")
-                        .error(exp.getMessage())
+                        .businessErrorDescription(exp.getMessage())
                         .build());
     }
 
     @ExceptionHandler(UserCreationException.class)
     public ResponseEntity<ExceptionResponse> handle(UserCreationException ex) {
-        return ResponseEntity.status(CONFLICT)
+        return ResponseEntity.status(BAD_REQUEST)
                 .body(ExceptionResponse.builder()
                         .businessErrorDescription(ex.getMessage())
                         .build());

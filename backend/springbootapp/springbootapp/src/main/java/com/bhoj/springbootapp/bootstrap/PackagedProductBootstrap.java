@@ -26,9 +26,8 @@ public class PackagedProductBootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Retailer retailer =  retailerServiceImpl
-                .fetchRetailerByName("Walmart")
-                .orElseThrow(() -> new RuntimeException("NO RETAILER FOUND"));
+        Retailer retailer =  retailerServiceImpl.getRetailerByName("Walmart");
+
 
         PackagedProduct coke = PackagedProduct.builder()
                 .itemNumber("ef363a67-f33c-4c80-b27b-816195975f37")

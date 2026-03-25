@@ -47,7 +47,9 @@ public class UserController {
     @PatchMapping("/user-deactivate")
     public ResponseEntity<String> deactivate(@RequestParam String userId){
 
-        return null;
+        String result = userService.deactivateAccount(userId);
+
+        return ResponseEntity.ok(result);
     }
 
 }
