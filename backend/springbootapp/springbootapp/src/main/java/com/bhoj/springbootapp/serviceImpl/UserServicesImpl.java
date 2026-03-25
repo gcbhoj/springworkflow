@@ -54,8 +54,7 @@ public class UserServicesImpl implements UserService {
             throw new UserCreationException("USER ID IS REQUIRED");
         }
 
-        User user = userRepo.findById(userId)
-                .orElseThrow(()-> new UserCreationException("USER NOT FOUND BY GIVEN ID"));
+        User user = verifyUserStatus(userId);
 
         return UserProfile.builder()
                 .userId(user.getUserId())
@@ -78,8 +77,7 @@ public class UserServicesImpl implements UserService {
 
         String userId = profile.getUserId();
 
-        User user = userRepo.findById(userId)
-                .orElseThrow(() -> new UserCreationException("INVALID USER ID"));
+        User user = verifyUserStatus(userId);
 
         // update fields
         user.setFirstName(profile.getFirstName());
@@ -98,18 +96,26 @@ public class UserServicesImpl implements UserService {
             throw new UserCreationException("USER ID IS REQUIRED");
         }
 
-        User user = userRepo.findById(userId)
-                .orElseThrow(() -> new UserCreationException("NO USER FOUND BY GIVEN ID"));
-
-        if (user.getStatus() == UserStatus.DEACTIVATED) {
-            return "ACCOUNT IS ALREADY DEACTIVATED";
-        }
+        User user = verifyUserStatus(userId);
 
         user.setStatus(UserStatus.DEACTIVATED);
 
         userRepo.save(user);
 
         return "ACCOUNT HAS BEEN DEACTIVATED SUCCESSFULLY";
+    }
+
+    private User verifyUserStatus(String userId){
+
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new UserCreationException("NO USER FOUND BY GIVEN ID"));
+
+        if (user.getStatus().equals(UserStatus.DEACTIVATED)|| user.getStatus().equals(UserStatus.ON_HOLD) ) {
+            throw new UserCreationException("ACCOUNT IS ALREADY DEACTIVATED OR IS ON HOLD");
+        }
+
+        return  user;
+
     }
 
 }
