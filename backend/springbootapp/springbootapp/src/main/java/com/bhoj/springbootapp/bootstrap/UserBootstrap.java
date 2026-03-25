@@ -4,10 +4,12 @@ import com.bhoj.springbootapp.beans.User;
 import com.bhoj.springbootapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Order(1)
 public class UserBootstrap implements CommandLineRunner {
 
     private final UserRepository userRepo;
@@ -16,6 +18,7 @@ public class UserBootstrap implements CommandLineRunner {
 
         User user = User.builder()
                 .firstName("John")
+                .lastName("Doe")
                 .email("john@example.com")
                 .build();
 

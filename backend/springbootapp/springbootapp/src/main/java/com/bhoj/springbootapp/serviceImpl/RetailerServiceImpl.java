@@ -1,4 +1,4 @@
-package com.bhoj.springbootapp.services;
+package com.bhoj.springbootapp.serviceImpl;
 
 import com.bhoj.springbootapp.DTO.RegisterRetailerRequest;
 import com.bhoj.springbootapp.beans.Retailer;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RetailerService {
+public class RetailerServiceImpl {
 
     private final RetailerRepository retailerRepo;
 

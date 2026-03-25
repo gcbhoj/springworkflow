@@ -62,4 +62,13 @@ public class GlobalExceptionHandler {
                         .error(exp.getMessage())
                         .build());
     }
+
+    @ExceptionHandler(UserCreationException.class)
+    public ResponseEntity<ExceptionResponse> handle(UserCreationException ex) {
+        return ResponseEntity.status(CONFLICT)
+                .body(ExceptionResponse.builder()
+                        .businessErrorDescription(ex.getMessage())
+                        .build());
+    }
+
 }

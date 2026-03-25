@@ -2,27 +2,24 @@ package com.bhoj.springbootapp.controllers;
 
 import com.bhoj.springbootapp.DTO.RegisterRetailerRequest;
 import com.bhoj.springbootapp.beans.Retailer;
-import com.bhoj.springbootapp.repository.RetailerRepository;
-import com.bhoj.springbootapp.services.RetailerService;
+import com.bhoj.springbootapp.serviceImpl.RetailerServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("retailer")
 public class RetailerController {
 
-    private final RetailerService retailerService;
+    private final RetailerServiceImpl retailerServiceImpl;
 
     @PostMapping("/retailer-register")
     public ResponseEntity<String> addNewRetailer(@RequestBody RegisterRetailerRequest request){
 
-        retailerService.saveRetailer(request);
+        retailerServiceImpl.saveRetailer(request);
 
         return ResponseEntity.ok("Retailer added successfully");
 
@@ -32,13 +29,13 @@ public class RetailerController {
     public ResponseEntity<Retailer> getRetailerById(
             @RequestParam String retailerId
     ) {
-        return retailerService.getRetailerById(retailerId)
+        return retailerServiceImpl.getRetailerById(retailerId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/")
     public ResponseEntity<List<Retailer>> getAllRetailers() {
-        return ResponseEntity.ok(retailerService.getAllRetailers());
+        return ResponseEntity.ok(retailerServiceImpl.getAllRetailers());
     }
 }

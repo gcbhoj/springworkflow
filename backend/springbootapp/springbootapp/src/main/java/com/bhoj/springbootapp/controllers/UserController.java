@@ -2,8 +2,10 @@ package com.bhoj.springbootapp.controllers;
 
 
 import com.bhoj.springbootapp.DTO.RegistrationRequest;
+import com.bhoj.springbootapp.DTO.RegistrationResponse;
+import com.bhoj.springbootapp.DTO.UserProfile;
 import com.bhoj.springbootapp.beans.User;
-import com.bhoj.springbootapp.services.UserServices;
+import com.bhoj.springbootapp.serviceImpl.UserServicesImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +16,38 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("user")
 public class UserController {
 
-    private final UserServices userService;
+    private final UserServicesImpl userService;
 
     @PostMapping("/user-register")
-    public ResponseEntity<User> addNewUser(@Valid @RequestBody RegistrationRequest request) {
+    public ResponseEntity<RegistrationResponse> addNewUser(@Valid @RequestBody RegistrationRequest request) {
 
-       User user =  userService.saveUser(request);
+        RegistrationResponse response = userService.addNewUser(request);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(response);
+
     }
     @GetMapping("/getUserById")
-    public ResponseEntity<User> getUserById(@RequestParam String userId){
+    public ResponseEntity<UserProfile> getUserById(@RequestParam String userId){
 
-        return userService.getUserById(userId)
-                .map(ResponseEntity::ok)
-                .orElseGet(()->ResponseEntity.notFound().build());
+        UserProfile profile = userService.getUserById(userId);
+
+        return ResponseEntity.ok(profile);
+
+    }
+
+    @PatchMapping("/editProfile")
+    public ResponseEntity<String> editProfile(@Valid @RequestBody UserProfile profile){
+
+        String result = userService.editProfile(profile);
+
+        return  ResponseEntity.ok(result);
+
+    }
+
+    @PatchMapping("/user-deactivate")
+    public ResponseEntity<String> deactivate(@RequestParam String userId){
+
+        return null;
     }
 
 }

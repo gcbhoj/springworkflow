@@ -4,9 +4,10 @@ import com.bhoj.springbootapp.beans.Ingredients;
 import com.bhoj.springbootapp.beans.PackagedProduct;
 import com.bhoj.springbootapp.beans.Retailer;
 import com.bhoj.springbootapp.repository.PackagedProductRepository;
-import com.bhoj.springbootapp.services.RetailerService;
+import com.bhoj.springbootapp.serviceImpl.RetailerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -16,15 +17,16 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Async
+@Order(3)
 public class PackagedProductBootstrap implements CommandLineRunner {
 
     private final PackagedProductRepository packagedProductRepo;
-    private final RetailerService retailerService;
+    private final RetailerServiceImpl retailerServiceImpl;
 
 
     @Override
     public void run(String... args) {
-        Retailer retailer = retailerService
+        Retailer retailer =  retailerServiceImpl
                 .fetchRetailerByName("Walmart")
                 .orElseThrow(() -> new RuntimeException("NO RETAILER FOUND"));
 
