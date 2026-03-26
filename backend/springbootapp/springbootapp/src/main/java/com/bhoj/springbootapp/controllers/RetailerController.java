@@ -55,4 +55,9 @@ public class RetailerController {
 
         return  ResponseEntity.ok(retailerService.deactivateRetailer(retailerId));
     }
+
+    @PatchMapping("/reactivate-retailer")
+    public ResponseEntity<String> reActivateRetailer(@RequestParam String retailerId){
+        return ResponseEntity.ok(retailerService.reActivateRetailer(retailerId));
+    }
 }

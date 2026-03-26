@@ -116,6 +116,24 @@ public class RetailerServiceImpl implements RetailerService {
 
     }
 
+    @Override
+    public String reActivateRetailer(String retailerId) {
+        if(retailerId == null || retailerId.isBlank()){
+            throw  new UserCreationException("RETAILER ID CANNOT BE BLANK");
+        }
+        Retailer retailer = findRetailerById(retailerId);
+
+        if(retailer.getStatus() == (RetailerStatus.DEACTIVATED)){
+            retailer.setStatus(RetailerStatus.ACTIVE);
+
+            retailerRepo.save(retailer);
+
+            return "RETAILER STATUS CHANGED TO ACTIVE";
+        }
+
+        return "RETAILER IS ALREADY ACTIVE";
+    }
+
     public Retailer getRetailerByName(String retailerName){
 
         if(retailerName == null){
@@ -132,7 +150,7 @@ public class RetailerServiceImpl implements RetailerService {
     }
 
 
-    private Retailer verifyRetailerStatus(String retailerId){
+    public Retailer verifyRetailerStatus(String retailerId){
         Retailer retailer =  retailerRepo.findById(
                 retailerId).orElseThrow(
                 () -> new UserCreationException("NO RETAILER FOUND BY GIVEN ID"));
@@ -143,5 +161,11 @@ public class RetailerServiceImpl implements RetailerService {
 
         return retailer;
 
+    }
+
+    public Retailer findRetailerById(String retailerId){
+
+        return retailerRepo.findById(retailerId)
+                .orElseThrow(() -> new UserCreationException("NO RETAILER FOUND BY GIVEN ID"));
     }
 }

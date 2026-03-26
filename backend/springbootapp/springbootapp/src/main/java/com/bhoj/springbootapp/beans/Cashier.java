@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class Cashier {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String cashierId;
 
     private String employeeId;

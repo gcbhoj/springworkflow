@@ -13,5 +13,6 @@ public interface RetailerService {
     RetailerRegistrationResponse addNewRetailer(RetailerRegistrationRequest request);
     String editRetailer(RetailerProfile profile);
     String deactivateRetailer(String retailerId);
+    String reActivateRetailer(String retailerId);
 
 }
