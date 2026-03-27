@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PackagedProductRepository extends JpaRepository<PackagedProduct, String> {
+
+    PackagedProduct findByItemNumber(String itemNumber);
 }

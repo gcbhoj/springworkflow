@@ -13,5 +13,6 @@ public interface UserService {
     UserProfile getUserById(String userId);
     String editProfile(UserProfile profile);
     String deactivateAccount(String userId);
+    String activateAccount(String userId);
 
 }

@@ -25,7 +25,8 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private Long quantity;
+    @Builder.Default
+    private Long quantity = 1L;
 
 
 

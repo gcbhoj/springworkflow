@@ -105,13 +105,33 @@ public class UserServicesImpl implements UserService {
         return "ACCOUNT HAS BEEN DEACTIVATED SUCCESSFULLY";
     }
 
-    private User verifyUserStatus(String userId){
+    @Override
+    public String activateAccount(String userId) {
+
+        if (userId == null || userId.isBlank()) {
+            throw new UserCreationException("USER ID IS REQUIRED");
+        }
+
+        User user = userRepo.findById(userId)
+                .orElseThrow(()-> new UserCreationException("USER NOT FOUND BY GIVEN ID"));
+
+        if(user.getStatus() == UserStatus.DEACTIVATED){
+            user.setStatus(UserStatus.ACTIVE);
+
+            userRepo.save(user);
+
+            return "USER STATUS SET TO ACTIVE";
+        }
+        return "ACCOUNT HAS BEEN ACTIVATED";
+    }
+
+    public User verifyUserStatus(String userId){
 
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new UserCreationException("NO USER FOUND BY GIVEN ID"));
 
         if (user.getStatus().equals(UserStatus.DEACTIVATED)|| user.getStatus().equals(UserStatus.ON_HOLD) ) {
-            throw new UserCreationException("ACCOUNT IS ALREADY DEACTIVATED OR IS ON HOLD");
+            throw new UserCreationException("ACCOUNT IS DEACTIVATED OR IS ON HOLD");
         }
 
         return  user;

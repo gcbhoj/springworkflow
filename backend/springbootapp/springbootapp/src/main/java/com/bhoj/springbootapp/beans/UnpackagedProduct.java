@@ -17,7 +17,9 @@ import java.time.LocalDateTime;
 @Table(name = "unpackaged_products")
 public class UnpackagedProduct extends Product{
     private String produceOf;
+    private double weight;
     private LocalDateTime packagedDate;
+
 
 
 }

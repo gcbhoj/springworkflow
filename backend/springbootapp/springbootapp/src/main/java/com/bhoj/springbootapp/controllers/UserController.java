@@ -52,4 +52,12 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
+    @PatchMapping("/user-reactivate")
+    public ResponseEntity <String> reactivate(@RequestParam String userId){
+
+        String result = userService.activateAccount(userId);
+
+        return  ResponseEntity.ok(result);
+    }
+
 }
