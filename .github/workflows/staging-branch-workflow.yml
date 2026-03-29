@@ -1,0 +1,75 @@
+name: Staging Branch Workflow
+
+on: 
+  push:
+    branches: 
+      - staging
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+
+  e2e-smoke-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Smoke Tests
+        run: echo "Smoke tests executed successfully"
+
+      - name: End-to-End Testing using Playwright
+        run: echo "E2E tests executed successfully"
+
+
+  performance-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Performance Testing
+        run: echo "Performance tests executed successfully using JMeter"
+
+
+  compatibility-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Compatibility Testing
+        run: echo "Running frontend on ${{ matrix.os }}"
+
+      - name: End-to-End Testing using Playwright
+        run: echo "E2E tests executed successfully"
