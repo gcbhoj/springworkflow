@@ -3,16 +3,14 @@ name: CI - Backend & Frontend Tests
 on:
   push:
     branches:
-      - "feature/*"
       - develop
-      # - main
+      - main
       - testing
       - "version/*"
   pull_request:
     branches:
       - develop
-      - "version/*"
-      # - main
+      - main
       - testing
   workflow_dispatch: 
 
