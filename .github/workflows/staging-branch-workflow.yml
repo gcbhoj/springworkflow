@@ -67,7 +67,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd frontend/zipcartportotype
+          cd frontend/ionicapp
           npm install
 
       - name: Compatibility Testing
