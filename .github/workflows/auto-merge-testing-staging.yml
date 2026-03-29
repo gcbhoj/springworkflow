@@ -1,0 +1,42 @@
+name: Auto Merge Testing → Staging
+
+on:
+  workflow_run:
+    workflows: ["Auto Merge Develop → testing"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  merge:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'develop'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: testing
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Merge testing into staging
+        run: |
+          git fetch origin
+          git merge origin/testing --no-edit
+          git push origin develop
+
+      # - name: Trigger CI on testing   # ✅ THIS FIXES YOUR ISSUE
+      #   run: |
+      #     gh workflow run "CI - Backend & Frontend Tests" --ref testing
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
