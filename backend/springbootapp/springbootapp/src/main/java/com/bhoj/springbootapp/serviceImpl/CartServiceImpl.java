@@ -102,6 +102,7 @@ public class CartServiceImpl implements CartServices {
     }
 
     @Override
+    @Transactional
     public String increasePackagedItemQuantity(AddPackagedItemDTO item) {
 
         Cart cart = getCartById(item.getCartId());
@@ -124,12 +125,10 @@ public class CartServiceImpl implements CartServices {
     }
 
     @Override
+    @Transactional
     public String decreasePackagedItemQuantity(AddPackagedItemDTO item) {
         Cart cart = getCartById(item.getCartId());
 
-        if (cart == null) {
-            throw new UserCreationException("CART ID CANNOT BE NULL");
-        }
 
         CartItem cartItem = cart.getCartItems().stream()
                 .filter(ci -> item.getItemNumber().equals(ci.getProduct().getItemNumber()))
@@ -151,6 +150,28 @@ public class CartServiceImpl implements CartServices {
 
         return "PRODUCT QUANTITY DECREASED SUCCESSFULLY";
     }
+
+    @Override
+    public String removePackagedItemQuantity(AddPackagedItemDTO item) {
+
+        Cart cart = getCartById(item.getCartId());
+
+        CartItem cartItem = cart.getCartItems().stream()
+                .filter(ci -> item.getItemNumber().equals(ci.getProduct().getItemNumber()))
+                .findFirst()
+                .orElseThrow(() -> new UserCreationException("PRODUCT NOT FOUND IN CART"));
+
+
+        cart.removeCartItem(cartItem);
+
+        cartRepo.save(cart);
+
+
+        return "PRODUCT SUCCESSFULLY REMOVED FROM CART";
+
+
+    }
+
     @Transactional
     @Override
     public CartProfile getCartByCartId(String cartId){
@@ -213,7 +234,7 @@ private Cart getCartByUserId(String userId){
         return   cartRepo.getCartByUserUserId(userId);
 }
 
-public Cart getCartById(String cartId){
+private Cart getCartById(String cartId){
         return cartRepo.findById(cartId)
                 .orElseThrow(()-> new UserCreationException("NO CART FOUND BY GIVEN ID"));
 

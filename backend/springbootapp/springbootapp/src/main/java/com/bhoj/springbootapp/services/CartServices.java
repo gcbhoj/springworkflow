@@ -13,4 +13,5 @@ public interface CartServices {
     String addPackagedItemToCart(AddPackagedItemDTO item);
     String increasePackagedItemQuantity(AddPackagedItemDTO item);
     String decreasePackagedItemQuantity(AddPackagedItemDTO item);
+    String removePackagedItemQuantity(AddPackagedItemDTO item);
 }

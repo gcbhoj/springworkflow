@@ -56,6 +56,9 @@ public class Cart {
 
 
     private LocalDateTime transactionEnd;
+    @Version
+    @Builder.Default
+    private Long version = 1L;
 
 
     @PrePersist
@@ -71,6 +74,11 @@ public class Cart {
     public  void addCartItem(CartItem item){
         this.cartItems.add(item);
         item.setCart(this);
+    }
+
+    public void removeCartItem(CartItem item){
+        this.cartItems.remove(item);
+        item.setCart(null);
     }
 
 }
