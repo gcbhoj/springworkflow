@@ -2,6 +2,7 @@ package com.bhoj.springbootapp.serviceImpl;
 
 import com.bhoj.springbootapp.DTO.*;
 import com.bhoj.springbootapp.beans.*;
+import com.bhoj.springbootapp.calculatorService.CalculatorServices;
 import com.bhoj.springbootapp.enums.CartStatus;
 import com.bhoj.springbootapp.exceptionHandler.UserCreationException;
 import com.bhoj.springbootapp.repository.CartRepository;
@@ -22,6 +23,8 @@ public class CartServiceImpl implements CartServices {
     private final UserServicesImpl userService;
     private final RetailerServiceImpl retailerService;
     private final PackagedProductServiceImpl packagedProductService;
+
+    private final CalculatorServices calc;
 
     @Transactional
     @Override
@@ -220,12 +223,27 @@ public class CartServiceImpl implements CartServices {
                 })
                 .toList();
 
+        BigDecimal packagedProductTotal = calc.calculateTotalCostPackagedProduct(packagedProducts);
+        BigDecimal unpackagedProductTotal = calc.calculateTotalCostUnPackagedProduct(unpackagedProducts);
+
+        BigDecimal subTotal = packagedProductTotal.add(unpackagedProductTotal);
+
+        BigDecimal hstAmount = calc.calculateHSTAmount(subTotal);
+
+        BigDecimal cartTotal = subTotal.add(hstAmount);
+
+
+
+
         // Return DTO
         return CartProfile.builder()
                 .cartId(cart.getCartId())
                 .userId(cart.getUser().getUserId())
                 .packagedProductList(packagedProducts)
                 .unpackagedProductList(unpackagedProducts)
+                .subTotal(subTotal)
+                .hstAmount(hstAmount)
+                .cartTotal(cartTotal)
                 .build();
     }
 

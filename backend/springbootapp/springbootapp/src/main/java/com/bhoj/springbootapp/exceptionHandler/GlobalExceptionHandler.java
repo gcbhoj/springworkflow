@@ -1,5 +1,6 @@
 package com.bhoj.springbootapp.exceptionHandler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,10 +13,13 @@ import java.util.Set;
 import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleValidationException(MethodArgumentNotValidException exp) {
+
+        log.error("Method Argument Not Valid Exception:", exp);
 
         Set<String> errors = new HashSet<>();
 
@@ -33,6 +37,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ExceptionResponse> handleNullPointerException(NullPointerException exp) {
 
+        log.error("Null Pointer Exception: ", exp);
+
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(ExceptionResponse.builder()
@@ -43,6 +49,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException exp) {
+
+        log.error("Bad Request Exception: ", exp);
 
         return ResponseEntity
                 .status(BAD_REQUEST)
@@ -55,6 +63,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleGenericException(Exception exp) {
 
+        log.error("Exception : ", exp);
+
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(ExceptionResponse.builder()
@@ -64,6 +74,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserCreationException.class)
     public ResponseEntity<ExceptionResponse> handle(UserCreationException ex) {
+
+        log.error("User Actions Exception: ", ex);
+
         return ResponseEntity.status(BAD_REQUEST)
                 .body(ExceptionResponse.builder()
                         .businessErrorDescription(ex.getMessage())

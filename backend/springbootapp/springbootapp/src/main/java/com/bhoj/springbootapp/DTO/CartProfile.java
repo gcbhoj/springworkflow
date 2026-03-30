@@ -20,6 +20,7 @@ public class CartProfile {
     private List<PackagedProductDTO> packagedProductList = new ArrayList<>();
     private List<UnpackagedProductDTO> unpackagedProductList =new ArrayList<>();
 
+    private BigDecimal subTotal;
     private BigDecimal hstAmount;
     private BigDecimal cartTotal;
 
