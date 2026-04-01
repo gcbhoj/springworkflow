@@ -21,7 +21,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          ref: testing
+          ref: staging
           fetch-depth: 0
 
       - name: Configure Git
@@ -32,6 +32,8 @@ jobs:
       - name: Merge testing into staging
         run: |
           git fetch origin
+          git checkout staging
+          git pull origin staging
           git merge origin/testing --no-edit
           git push origin staging
 
