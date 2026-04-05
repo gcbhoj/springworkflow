@@ -9,8 +9,8 @@ describe('LiveWeightComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LiveWeightComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [LiveWeightComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LiveWeightComponent);

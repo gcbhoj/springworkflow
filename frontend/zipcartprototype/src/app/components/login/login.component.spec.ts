@@ -9,8 +9,8 @@ describe('LoginComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [LoginComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);

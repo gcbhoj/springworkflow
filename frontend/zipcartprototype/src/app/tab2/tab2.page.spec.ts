@@ -1,12 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Tab2Page } from './tab2.page';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { IonicModule } from '@ionic/angular';
 
 describe('Tab2Page', () => {
   let component: Tab2Page;
   let fixture: ComponentFixture<Tab2Page>;
 
   beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        Tab2Page, // standalone page
+        IonicModule.forRoot(), // Ionic
+        HttpClientTestingModule, // ✅ Provides HttpClient
+      ],
+    }).compileComponents();
     fixture = TestBed.createComponent(Tab2Page);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -9,8 +9,8 @@ describe('WeighedProductDisplayComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WeighedProductDisplayComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [WeighedProductDisplayComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WeighedProductDisplayComponent);

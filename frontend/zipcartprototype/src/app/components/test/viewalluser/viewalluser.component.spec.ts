@@ -9,8 +9,8 @@ describe('ViewalluserComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewalluserComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [ViewalluserComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewalluserComponent);

@@ -9,8 +9,8 @@ describe('CameraComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CameraComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [CameraComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CameraComponent);

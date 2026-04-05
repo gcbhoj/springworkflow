@@ -9,8 +9,8 @@ describe('UnpackageditemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnpackageditemComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [UnpackageditemComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UnpackageditemComponent);

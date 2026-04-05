@@ -9,8 +9,8 @@ describe('WeighingMachineDisplayComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WeighingMachineDisplayComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [WeighingMachineDisplayComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WeighingMachineDisplayComponent);

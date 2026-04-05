@@ -9,8 +9,8 @@ describe('PythonResponseComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PythonResponseComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [PythonResponseComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PythonResponseComponent);

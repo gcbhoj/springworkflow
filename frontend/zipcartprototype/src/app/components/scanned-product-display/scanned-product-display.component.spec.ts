@@ -9,8 +9,8 @@ describe('ScannedProductDisplayComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScannedProductDisplayComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [ScannedProductDisplayComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScannedProductDisplayComponent);

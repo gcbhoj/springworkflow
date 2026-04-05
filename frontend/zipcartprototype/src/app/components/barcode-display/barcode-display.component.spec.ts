@@ -9,8 +9,8 @@ describe('BarcodeDisplayComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarcodeDisplayComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [BarcodeDisplayComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BarcodeDisplayComponent);

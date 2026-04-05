@@ -9,8 +9,8 @@ describe('CartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [CartComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CartComponent);

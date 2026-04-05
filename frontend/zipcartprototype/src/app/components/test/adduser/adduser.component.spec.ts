@@ -9,8 +9,8 @@ describe('AdduserComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdduserComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [AdduserComponent, IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdduserComponent);
