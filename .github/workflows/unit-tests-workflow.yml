@@ -63,17 +63,17 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        working-directory: frontend/ionicapp
+        working-directory: frontend/zipcartprototype
         run: npm install
 
       - name: Run Frontend Tests
-        working-directory: frontend/ionicapp
+        working-directory: frontend/zipcartprototype
         run: npm test
 
       - name: Publish Frontend Test Results
         if: always()
         uses: mikepenz/action-junit-report@v4
         with:
-          report_paths: frontend/ionicapp/coverage/*.xml
+          report_paths: frontend/zipcartprototype/coverage/*.xml
           detailed_summary: true
           include_passed: true
