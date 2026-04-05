@@ -1,0 +1,49 @@
+<div class="cart-container">
+  <!-- HEADER: 3 columns -->
+  <div class="cart-header">
+    <!-- Column 1: Store info -->
+    <div class="header-col store-info">
+      <strong>Store</strong>
+      <p>{{ cartInitResponse.retailerName }}</p>
+    </div>
+
+    <!-- Column 2: Budget -->
+    <div class="header-col budget">
+      <strong>Budget</strong>
+      <p>{{ cartInitResponse.budget }}</p>
+    </div>
+
+    <!-- Column 3: store Information -->
+    <div class="header-col login">
+      <ion-button (click)="completeShopping()">CheckOut</ion-button>
+    </div>
+  </div>
+  <div></div>
+
+  <!-- SCROLLABLE PRODUCTS AREA -->
+  <div class="cart-products">
+    <app-packageditem></app-packageditem>
+    <app-unpackageditem></app-unpackageditem>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="cart-footer">
+    <div class="footer-cell">
+      <div>
+        <span>Before Tax</span>
+        <p>{{ totalCartAmountBeforeTax }}</p>
+      </div>
+    </div>
+
+    <div class="footer-cell">
+      <div>
+        <span>Applicable Taxes</span>
+        <p>{{ taxAmount }}</p>
+      </div>
+    </div>
+    <div class="footer-cell">
+      <span>Total Amount</span>
+      <p>{{ totalCartAmount }}</p>
+    </div>
+  </div>
+</div>
