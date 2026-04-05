@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <!-- Row 1: Logo + Name -->
+      <div class="header-top">
+        <img src="/assets/images/ZipCartLogo.png" />
+        <span>Zip Cart</span>
+      </div>
+
+      <!-- Row 2: Page Title -->
+      <div class="header-bottom">HOME</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-login></app-login>
+
+  <div>
+    <h4>Select Store</h4>
+  </div>
+
+  <div class="retailer-container">
+    <ion-card *ngFor="let retailer of retailers">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="ion-align-items-center ion-justify-content-center">
+            <!-- Retailer Logo -->
+            <ion-col size="4" class="logo-col">
+              <img src="{{retailer.retailerLogoUrl}}" class="retailer-logo" />
+            </ion-col>
+
+            <!-- Button + Website -->
+            <ion-col size="8" class="info-col">
+              <span hidden>{{retailer.retailerId}}</span>
+              <ion-button
+                expand="block"
+                [disabled]="!isEnabled"
+                (click)="startShopping(retailer.retailerId)"
+              >
+                {{ retailer.retailerName }}
+              </ion-button>
+
+              <a
+                [href]="retailer.retailerURL"
+                target="_blank"
+                class="retailer-link"
+              >
+                {{ retailer.retailerName }}
+              </a>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
