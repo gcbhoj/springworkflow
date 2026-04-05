@@ -14,14 +14,14 @@ jobs:
   merge:
     if: >
       github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'develop'
+      github.event.workflow_run.head_branch == 'testing'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          ref: testing
+          ref: staging
           fetch-depth: 0
 
       - name: Configure Git
@@ -32,6 +32,8 @@ jobs:
       - name: Merge testing into staging
         run: |
           git fetch origin
+          git checkout staging
+          git pull origin staging
           git merge origin/testing --no-edit
           git push origin staging
 

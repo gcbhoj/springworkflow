@@ -21,7 +21,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          ref: develop
+          ref: testing
           fetch-depth: 0
 
       - name: Configure Git
@@ -32,6 +32,8 @@ jobs:
       - name: Merge develop into testing
         run: |
           git fetch origin
+          git checkout testing
+          git pull origin testing
           git merge origin/develop --no-edit
           git push origin testing
 

@@ -1,0 +1,72 @@
+.retailer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+ion-card {
+  width: 90%;
+  position: absolute;
+}
+
+.logo-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.retailer-logo {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.info-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.retailer-link {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+/* HEADER WRAPPER */
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* TOP ROW (logo + name) */
+.header-top {
+  display: flex;
+  align-items: center;
+}
+
+.header-top img {
+  height: 30px;
+  margin-right: 8px;
+}
+
+.header-top span {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* BOTTOM ROW (HOME) */
+.header-bottom {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2px;
+  color: #666;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  font: bolder;
+}
