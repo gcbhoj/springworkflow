@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header-wrapper">
+      <!-- Row 1: Logo + Name -->
+      <div class="header-top">
+        <img src="/assets/images/ZipCartLogo.png" />
+        <span>Zip Cart</span>
+      </div>
+
+      <!-- Row 2: Page Title -->
+      <div class="header-bottom">Fruits & Vegetables</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">fruitsAndVeg</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="camera_border"><app-camera></app-camera></div>
+  <div style="width: 50px; height: 50px">
+    <!-- ✅ Correct image display -->
+    <img *ngIf="imageURL" [src]="imageURL" />
+  </div>
+  <div class="button-container">
+    <ion-button
+      expand="block"
+      (click)="sendImageButton()"
+      [disabled]="isProcessing"
+    >
+      <ion-spinner *ngIf="isProcessing" name="crescent"></ion-spinner>
+
+      <span *ngIf="!isProcessing">Send Image</span>
+      <span *ngIf="isProcessing">Processing...</span>
+    </ion-button>
+  </div>
+
+  <app-weighed-product-display></app-weighed-product-display>
+  <app-python-response></app-python-response>
+</ion-content>
