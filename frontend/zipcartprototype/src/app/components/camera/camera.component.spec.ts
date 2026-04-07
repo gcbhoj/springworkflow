@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { CameraComponent } from './camera.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CameraComponent', () => {
   let component: CameraComponent;
@@ -10,7 +11,7 @@ describe('CameraComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [CameraComponent, IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CameraComponent);

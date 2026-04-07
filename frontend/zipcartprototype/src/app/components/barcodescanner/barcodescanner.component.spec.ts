@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { BarcodescannerComponent } from './barcodescanner.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BarcodescannerComponent', () => {
   let component: BarcodescannerComponent;
@@ -10,7 +11,7 @@ describe('BarcodescannerComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [BarcodescannerComponent, IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BarcodescannerComponent);

@@ -1,0 +1,1 @@
+running docker db locally - docker exec -it zipcart-mysql mysql -u zipcartuser -p

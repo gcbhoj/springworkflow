@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { CartComponent } from './cart.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -10,7 +11,7 @@ describe('CartComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [CartComponent, IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CartComponent);
