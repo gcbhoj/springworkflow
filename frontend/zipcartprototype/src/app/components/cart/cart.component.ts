@@ -42,8 +42,8 @@ export class CartComponent implements OnInit, OnDestroy {
   };
   login: LoginResponse = {
     userId: '',
-    userName: '',
-    message: '',
+    firstName: '',
+    email: '',
   };
 
   // initializing the cart interface to share packaged product and unpackaged product

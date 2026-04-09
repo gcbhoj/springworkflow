@@ -34,8 +34,8 @@ export class Tab1Page implements OnInit {
   };
   login: LoginResponse = {
     userId: '',
-    userName: '',
-    message: '',
+    firstName: '',
+    email: '',
   };
 
   constructor(

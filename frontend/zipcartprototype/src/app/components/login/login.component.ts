@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   logIn: LoginResponse = {
     userId: '11121314-1516-1718-1920-212223242526',
-    userName: '',
-    message: '',
+    firstName: '',
+    email: '',
   };
   constructor(
     private userService: UserService,
@@ -43,7 +43,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (result: LoginResponse) => {
           this.logIn = result;
-          this.toast.showSuccess(this.logIn.message);
+          console.log('Log In Response', this.logIn);
+          this.toast.showSuccess(this.logIn.firstName.toString());
         },
         error: (err) => {
           const message = err?.error?.message || 'Unable to login';

@@ -17,6 +17,7 @@ public class UserBootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         User user = User.builder()
+                .userId("11121314-1516-1718-1920-212223242526")
                 .firstName("John")
                 .lastName("Doe")
                 .email("john@example.com")

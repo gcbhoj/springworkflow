@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { PackageditemComponent } from './packageditem.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PackageditemComponent', () => {
   let component: PackageditemComponent;
@@ -11,7 +10,7 @@ describe('PackageditemComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PackageditemComponent);

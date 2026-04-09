@@ -4,6 +4,6 @@
  */
 export interface LoginResponse {
   userId: string;
-  userName: String;
-  message: string;
+  firstName: String;
+  email: string;
 }
