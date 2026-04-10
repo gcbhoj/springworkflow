@@ -63,11 +63,11 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        working-directory: frontend/ionicapp
+        working-directory: frontend/zipcartprototype
         run: npm install
 
       - name: Run Frontend Tests
-        working-directory: frontend/ionicapp
+        working-directory: frontend/zipcartprototype
         run: npm test
 
       - name: Publish Frontend Test Results
