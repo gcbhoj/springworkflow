@@ -13,7 +13,6 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { BarcodeDisplayComponent } from '../barcode-display/barcode-display.component';
 import { ToastServices } from 'src/app/services/toastService/toast-services';
-import { BarcodeService } from 'src/app/services/springServices/barcodeServices/barcode-service';
 import { CartService } from 'src/app/services/springServices/cartServices/cart-service';
 
 @Component({
@@ -67,7 +66,6 @@ export class CartComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private toast: ToastServices,
     private zone: NgZone,
-    private barCodeService: BarcodeService,
     private cartServices: CartService,
   ) {}
   ngOnDestroy(): void {

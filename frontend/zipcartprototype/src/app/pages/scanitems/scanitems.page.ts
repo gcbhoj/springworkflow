@@ -1,11 +1,11 @@
+import { ProductService } from './../../services/springServices/productServices/product-service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BarcodescannerComponent } from 'src/app/components/barcodescanner/barcodescanner.component';
 import { Datasharing } from 'src/app/services/datasharing/datasharing';
-import { BarCodeScannerResultDTO } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
+import { BarCodeScannerResult } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
 import { ScannedProductDisplayComponent } from 'src/app/components/scanned-product-display/scanned-product-display.component';
-import { BarcodeService } from 'src/app/services/springServices/barcodeServices/barcode-service';
 import { ProductInformation } from 'src/app/classes/Models/PackagedProductInformation';
 import { Router } from '@angular/router';
 import { StartShoppingResponse } from 'src/app/classes/DTOs/StartShoppingResponse';
@@ -86,16 +86,18 @@ export class ScanitemsPage implements OnInit, OnDestroy {
     '041570110000',
   ];
 
-  barCodeResults: BarCodeScannerResultDTO = {
-    isValid: true,
-    text: '5000112546415',
+  itemNumber: String = 'ef363a67-f33c-4c80-b27b-816195975f37';
+
+  barCodeResults: BarCodeScannerResult = {
+    _isValid: true,
+    upc: '5000112546415',
     format: '',
     contentType: '',
   };
 
   constructor(
     private dataSharing: Datasharing,
-    private barCodeService: BarcodeService,
+    private productService: ProductService,
     private router: Router,
     private toast: ToastServices,
     private calculator: CalculatorService,
@@ -154,8 +156,8 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   // posting the received bar code to receive the product details
   sendBarCode() {
-    this.barCodeService
-      .getPackagedProductDetails(this.barCodeResults)
+    this.productService
+      .getProductByBarCode(this.barCodeResults)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
@@ -196,6 +198,12 @@ export class ScanitemsPage implements OnInit, OnDestroy {
   /**
    * FUNCTIONALITIES
    */
+
+  // calling product services with barcode
+
+  getProductDetails() {
+    this.sendBarCode();
+  }
 
   //removing the scanned item when cancel is pressed
   removeScannedItem() {

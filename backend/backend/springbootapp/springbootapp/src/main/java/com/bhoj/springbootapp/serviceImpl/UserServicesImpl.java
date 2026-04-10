@@ -12,6 +12,7 @@ import com.bhoj.springbootapp.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.data.util.ClassUtils.ifPresent;
@@ -123,6 +124,22 @@ public class UserServicesImpl implements UserService {
             return "USER STATUS SET TO ACTIVE";
         }
         return "ACCOUNT HAS BEEN ACTIVATED";
+    }
+
+    @Override
+    public List<UserProfile> getAll() {
+        return userRepo.findAll()
+                .stream()
+                .map(user -> UserProfile.builder()
+                        .userId(user.getUserId())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .email(user.getEmail())
+                        .activationDate(user.getActivationDate().toString())
+                        .lastUpdated(user.getLastUpdated().toString())
+                        // map other fields
+                        .build())
+                .toList();
     }
 
     public User verifyUserStatus(String userId){

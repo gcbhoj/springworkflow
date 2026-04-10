@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (result: LoginResponse) => {
           this.logIn = result;
-          console.log('Log In Response', this.logIn);
           this.toast.showSuccess(this.logIn.firstName.toString());
         },
         error: (err) => {

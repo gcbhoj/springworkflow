@@ -51,12 +51,12 @@ public class CartServiceImpl implements CartServices {
                         : initCart.getBudget())
                 .build();
 
-        cartRepo.save(cart);
+        Cart savedCart = cartRepo.saveAndFlush(cart);
 
         return InitializeCartResponse.builder()
-                .cartId(cart.getCartId())
+                .cartId(savedCart.getCartId())
                 .retailerName(retailerName)
-                .budget(cart.getBudget())
+                .budget(savedCart.getBudget())
                 .message("HAPPY SHOPPING")
                 .build();
     }

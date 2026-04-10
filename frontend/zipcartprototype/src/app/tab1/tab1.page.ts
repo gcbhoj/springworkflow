@@ -132,6 +132,7 @@ export class Tab1Page implements OnInit {
     this.cartServices.initializeCart(shoppingDTO).subscribe({
       next: (response) => {
         this.cartInitResponse = response;
+        console.log(this.cartInitResponse);
         this.toast.showSuccess(response.message);
         this.shareCartInitResponse();
         // this.router.navigate(['/tabs/scanItems']);

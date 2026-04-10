@@ -1,7 +1,7 @@
 import { PackagedProduct } from '../../classes/Models/PackagedProduct';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { BarCodeScannerResultDTO } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
+import { BarCodeScannerResult} from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
 import { LoginResponse } from 'src/app/classes/DTOs/LoginResponseDTO';
 import { ProductInformation } from 'src/app/classes/Models/PackagedProductInformation';
 import { StartShoppingResponse } from 'src/app/classes/DTOs/StartShoppingResponse';
@@ -39,8 +39,8 @@ export class Datasharing {
     this.packagedProductSharing.asObservable();
 
   private barcodeDetailsSharing =
-    new BehaviorSubject<BarCodeScannerResultDTO | null>(null);
-  barcodeDetails: Observable<BarCodeScannerResultDTO | null> =
+    new BehaviorSubject<BarCodeScannerResult | null>(null);
+  barcodeDetails: Observable<BarCodeScannerResult | null> =
     this.barcodeDetailsSharing.asObservable();
 
   private unPackagedProductSharing = new BehaviorSubject<UnPackagedProduct[]>(
@@ -134,7 +134,7 @@ export class Datasharing {
 
   //exchanging the bar code scanned results to be used for post method
   exchangeBarCodeScannedResults(
-    barCodeScanningResults: BarCodeScannerResultDTO,
+    barCodeScanningResults: BarCodeScannerResult,
   ) {
     this.barcodeDetailsSharing.next(barCodeScanningResults);
   }
