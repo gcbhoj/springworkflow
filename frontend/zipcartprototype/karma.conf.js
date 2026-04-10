@@ -35,7 +35,25 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ["ChromeHeadless"],
-    singleRun: false,
-    restartOnFileChange: true,
+    // ✅ required for CI stability
+    singleRun: true,
+    restartOnFileChange: false,
+
+    // ✅ fixes Chrome crashing in Linux/CI environments
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
+      },
+    },
   });
+
+  // ✅ Automatically switch to CI-safe mode if running in CI
+  if (process.env.CI) {
+    config.set({
+      browsers: ["ChromeHeadlessCI"],
+      singleRun: true,
+      autoWatch: false,
+    });
+  }
 };
