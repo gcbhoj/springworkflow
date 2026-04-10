@@ -63,32 +63,11 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   //barcodes of mock data stored in mock server NOTE:FOR TESTING PURPOSES ONLY
 
-  barcodes: string[] = [
-    '5000112546415',
-    '049000050158',
-    '049000028911',
-    '012000809151',
-    '012000161938',
-    '041508260003',
-    '070847000328',
-    '041800000038',
-    '4902430780010',
-    '044000032029',
-    '028400064505',
-    '028400064529',
-    '016000275410',
-    '030000561516',
-    '048000001234',
-    '034000052356',
-    '037000373925',
-    '040000000452',
-    '041570109843',
-    '041570110000',
-  ];
+  barcodes: string[] = ['5000112546415', '049000050158', '049000028911'];
 
   barCodeResults: BarCodeScannerResult = {
     _isValid: true,
-    upc: '5000112546415',
+    upc: '',
     format: '',
     contentType: '',
   };
@@ -153,9 +132,9 @@ export class ScanitemsPage implements OnInit, OnDestroy {
    */
 
   // posting the received bar code to receive the product details
-  sendBarCode() {
+  sendBarCode(results: BarCodeScannerResult) {
     this.productService
-      .getProductByBarCode(this.barCodeResults)
+      .getProductByBarCode(results)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
@@ -200,7 +179,7 @@ export class ScanitemsPage implements OnInit, OnDestroy {
   // calling product services with barcode
 
   getProductDetails() {
-    this.sendBarCode();
+    this.sendBarCode(this.barCodeResults);
   }
 
   //removing the scanned item when cancel is pressed
@@ -225,6 +204,12 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
     // update shared observable
     this.dataSharing.exchangePackagedProductInformation(emptyProduct);
+
+    this.scannedPackagedProductRequest = {
+      cartId: this.cartInitResponse.cartId,
+      itemNumber: '',
+    };
+
     // enabling the scanner
     this.onProductCleared();
     this.addItemsToCartButtonEnabled = false;
@@ -243,5 +228,33 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   onProductCleared() {
     this.productDisplayed = false;
+  }
+
+  /**
+   * MOCK FUNCTIONALITIES FOR TESTING PURPOSES
+   */
+
+  generateRandomBarcode() {
+    for (let index = 0; index < this.barcodes.length; index++) {
+      this.barCodeResults = {
+        _isValid: true,
+        upc: this.barcodes[index],
+        format: 'text',
+        contentType: 'text',
+      };
+    }
+  }
+
+  makeAPIRequest() {
+    const randomIndex = Math.floor(Math.random() * this.barcodes.length);
+
+    const result: BarCodeScannerResult = {
+      _isValid: true,
+      upc: this.barcodes[randomIndex],
+      format: 'text',
+      contentType: 'text',
+    };
+
+    this.sendBarCode(result);
   }
 }
