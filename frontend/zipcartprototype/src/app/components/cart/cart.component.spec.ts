@@ -33,8 +33,8 @@ describe('CartComponent', () => {
     cart = {
       cartId: '123',
       userId: 'abc',
-      packagedProducts: [pkgProduct],
-      unpackagedProducts: [unPkgProduct],
+      packagedProductList: [pkgProduct],
+      unpackagedProductList: [unPkgProduct],
       hst: 0,
       totalAmount: 0,
     } as Cart;

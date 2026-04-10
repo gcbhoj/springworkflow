@@ -54,27 +54,27 @@ public class CartController {
     }
 
     @PostMapping("/increase-packaged")
-    public ResponseEntity<String> increasePackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
+    public ResponseEntity<Map<String, String>> increasePackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
 
         log.info("Increase Packaged Item Qty: {}", item);
         String result = cartService.increasePackagedItemQuantity(item);
 
-        return  ResponseEntity.ok(result);
+        return  ResponseEntity.ok(Map.of("result", result));
     }
     @PostMapping("/decrease-packaged")
-    public ResponseEntity<String> decreasePackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
+    public ResponseEntity<Map<String, String>> decreasePackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
         log.info("decrease Packaged Item Qty: {}", item);
 
         String result = cartService.decreasePackagedItemQuantity(item);
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(Map.of("result", result));
     }
     @PatchMapping("/remove-packaged")
-    public ResponseEntity<String> removePackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
+    public ResponseEntity<Map<String, String>> removePackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
         log.info("Remove Packaged Item: {}", item);
 
         String result = cartService.removePackagedItemQuantity(item);
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(Map.of("result", result));
     }
 }
