@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd frontend/ionicapp
+          cd frontend/zipcartprototype
           npm install
 
       - name: Install Playwright
@@ -70,7 +70,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd frontend/ionicapp
+          cd frontend/zipcartprototype
           npm install
 
       - name: Compatibility Testing
