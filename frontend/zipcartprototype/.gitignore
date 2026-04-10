@@ -164,3 +164,10 @@ packages/react/test/build/
 packages/react-router/test/build/
 
 .npmrc
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
