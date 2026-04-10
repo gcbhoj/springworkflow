@@ -32,7 +32,7 @@ export class UnpackageditemComponent implements OnInit, OnDestroy {
 
   request: PackagedProductRequests = {
     cartId: '',
-    itemId: '',
+    itemNumber: '',
   };
   constructor(
     private dataSharing: Datasharing,
@@ -124,7 +124,7 @@ export class UnpackageditemComponent implements OnInit, OnDestroy {
   prepareData(itemId: string) {
     this.request = {
       cartId: this.cartInitResponse.cartId,
-      itemId: itemId,
+      itemNumber: itemId,
     };
   }
 

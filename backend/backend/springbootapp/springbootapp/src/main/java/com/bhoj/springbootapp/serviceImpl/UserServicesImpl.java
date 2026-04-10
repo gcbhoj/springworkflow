@@ -136,7 +136,6 @@ public class UserServicesImpl implements UserService {
                         .lastName(user.getLastName())
                         .email(user.getEmail())
                         .activationDate(user.getActivationDate().toString())
-                        .lastUpdated(user.getLastUpdated().toString())
                         // map other fields
                         .build())
                 .toList();

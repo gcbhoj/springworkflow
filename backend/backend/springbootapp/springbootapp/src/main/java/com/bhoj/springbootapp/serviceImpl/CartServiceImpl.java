@@ -9,6 +9,7 @@ import com.bhoj.springbootapp.repository.CartRepository;
 import com.bhoj.springbootapp.services.CartServices;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CartServiceImpl implements CartServices {
 
     private final CartRepository cartRepo;
@@ -64,21 +66,18 @@ public class CartServiceImpl implements CartServices {
     @Override
     @Transactional
     public String addPackagedItemToCart(AddPackagedItemDTO item) {
+        log.info("Cart service Add Packaged Item: {}", item);
 
         Cart cart = getCartById(item.getCartId());
-        if(cart == null){
-            throw  new UserCreationException("CANNOT FIND CART BY GIVEN ID");
-        }
+
 
         if(cart.getCartItems().isEmpty()){
             cart.setStatus(CartStatus.IN_PROGRESS);
         }
 
-        PackagedProduct product = packagedProductService.getProductByItemId(item.getItemNumber());
+        PackagedProduct product = packagedProductService
+                .getProductByItemId(item.getItemNumber());
 
-        if(product == null){
-            throw new UserCreationException("CANNOT FIND PACKAGED PRODUCT BY GIVEN ITEM ID");
-        }
 
         CartItem existingItem = cart.getCartItems().stream()
                 .filter(i->item.getItemNumber().equals(i.getProduct().getItemNumber()))
@@ -98,8 +97,8 @@ public class CartServiceImpl implements CartServices {
         cart.addCartItem(cartItem);
 
 
-        cartRepo.save(cart);
-        System.out.println("Saved cart items: " + cart.getCartItems().size());
+       Cart savedcart =  cartRepo.save(cart);
+
 
         return "PRODUCT ADDED TO CART SUCCESSFULLY";
     }

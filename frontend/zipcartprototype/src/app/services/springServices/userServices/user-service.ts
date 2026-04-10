@@ -24,4 +24,8 @@ export class UserService {
       this.backendUrl + '/getUserById/' + userId,
     );
   }
+
+  loadAllUsers(): Observable<LoginResponse[]> {
+    return this.http.get<LoginResponse[]>(`${this.backendUrl}/`);
+  }
 }

@@ -47,7 +47,7 @@ export class CartService {
   }
 
   getCartByCartId(cartId: string): void {
-    this.http.get<Cart>(`${this.backendUrl}/retrieve/${cartId}`).subscribe({
+    this.http.get<Cart>(`${this.backendUrl}/getById/${cartId}`).subscribe({
       next: (cart: Cart) => {
         this.cartSubject.next(cart);
       },

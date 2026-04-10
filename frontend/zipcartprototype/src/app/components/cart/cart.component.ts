@@ -78,6 +78,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.receiveCartInitResponse();
     this.receivePackagedProductTotal();
     this.receiveUnPackagedProductTotal();
+
+    this.subscribeToCart();
   }
   /**
    * DATA SHARING
@@ -151,20 +153,22 @@ export class CartComponent implements OnInit, OnDestroy {
    *  GET REQUEST TO FETCH CART BY ID
    */
 
+  subscribeToCart() {
+    this.cartServices.cart$.pipe(takeUntil(this.destroy$)).subscribe((cart) => {
+      if (!cart) return;
+
+      this.completeCart = cart;
+      this.packagedProduct = cart.packagedProductList;
+      this.unpackagedProduct = cart.unpackagedProductList;
+
+      this.sharePackagedProduct();
+      this.shareUnPackagedProduct();
+      this.performCalculations();
+    });
+  }
+
   fetchCartByCartId(cartId: string) {
     this.cartServices.getCartByCartId(cartId);
-    this.cartServices.cart$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((cart: Cart | null) => {
-        if (cart) {
-          this.completeCart = cart;
-          this.packagedProduct = cart.packagedProducts;
-          this.unpackagedProduct = cart.unpackagedProducts;
-          this.sharePackagedProduct();
-          this.shareUnPackagedProduct();
-          this.performCalculations();
-        }
-      });
   }
 
   // COMPLETE SHOPPING

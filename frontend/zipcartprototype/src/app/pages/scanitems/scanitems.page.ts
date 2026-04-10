@@ -58,7 +58,7 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   scannedPackagedProductRequest: PackagedProductRequests = {
     cartId: '',
-    itemId: '',
+    itemNumber: '',
   };
 
   //barcodes of mock data stored in mock server NOTE:FOR TESTING PURPOSES ONLY
@@ -85,8 +85,6 @@ export class ScanitemsPage implements OnInit, OnDestroy {
     '041570109843',
     '041570110000',
   ];
-
-  itemNumber: String = 'ef363a67-f33c-4c80-b27b-816195975f37';
 
   barCodeResults: BarCodeScannerResult = {
     _isValid: true,
@@ -132,7 +130,7 @@ export class ScanitemsPage implements OnInit, OnDestroy {
   sharePackagedProductInformation() {
     if (this.packagedProduct) {
       this.dataSharing.exchangePackagedProductInformation(this.packagedProduct);
-      this.scannedPackagedProductRequest.itemId =
+      this.scannedPackagedProductRequest.itemNumber =
         this.packagedProduct.itemNumber;
     }
   }

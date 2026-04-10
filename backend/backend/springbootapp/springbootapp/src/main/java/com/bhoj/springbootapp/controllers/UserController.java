@@ -31,8 +31,12 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<List<UserProfile>> getAllUsers(){
-        return  null;
+
+        List<UserProfile> users = userService.getAll();
+
+        return ResponseEntity.ok(users);
     }
+
     @GetMapping("/getUserById/{userId}")
     public ResponseEntity<UserProfile> getUserById(@PathVariable String userId){
 

@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("cart")
 @RequiredArgsConstructor
@@ -30,23 +32,25 @@ public class CartController {
 
     }
 
-    @GetMapping("/getById")
-    public ResponseEntity<CartProfile> getCartById(String cartId){
+    @GetMapping("/getById/{cartId}")
+    public ResponseEntity<CartProfile> getCartById(@PathVariable String cartId){
         log.info("Get Cart By Id Request: {}", cartId);
 
         CartProfile profile = cartService.getCartByCartId(cartId);
+        System.out.println(profile);
 
         return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/add-packaged")
-    public ResponseEntity<String> addPackagedItem(@Valid @RequestBody AddPackagedItemDTO item){
+    public ResponseEntity<Map<String, String>> addPackagedItem(
+            @Valid @RequestBody AddPackagedItemDTO item){
         log.info("Add Packaged Item: {}", item);
 
 
         String result = cartService.addPackagedItemToCart(item);
 
-        return  ResponseEntity.ok(result);
+        return  ResponseEntity.ok(Map.of("result", result));
     }
 
     @PostMapping("/increase-packaged")

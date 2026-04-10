@@ -35,7 +35,7 @@ export class PackageditemComponent implements OnInit, OnDestroy {
 
   apiRequests: PackagedProductRequests = {
     cartId: '',
-    itemId: '',
+    itemNumber: '',
   };
   constructor(
     private dataSharing: Datasharing,
@@ -63,7 +63,6 @@ export class PackageditemComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.products = data;
-
         this.calculateProductTotalBeforeTaxes();
       });
   }
@@ -94,7 +93,6 @@ export class PackageditemComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           this.toast.showSuccess(response.result);
-          console.log(response.result);
           this.cartServices.getCartByCartId(this.cartInitResponse.cartId);
         },
         error: (err) => {
@@ -175,6 +173,6 @@ export class PackageditemComponent implements OnInit, OnDestroy {
    */
   prepareData(itemId: string) {
     this.apiRequests.cartId = this.cartInitResponse.cartId;
-    this.apiRequests.itemId = itemId;
+    this.apiRequests.itemNumber = itemId;
   }
 }
