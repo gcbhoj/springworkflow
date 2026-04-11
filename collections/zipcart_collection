@@ -11,7 +11,778 @@
       "name": "User",
       "item": [
         {
-          "name": "registerUser-success",
+          "name": "Registration",
+          "item": [
+            {
+              "name": "registerUser-success",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "const jsonData = pm.response.json();\r",
+                      "const userId = jsonData.userId;\r",
+                      "console.log(userId)\r",
+                      "\r",
+                      "pm.test(\"User ID is returned\", function () {\r",
+                      "    pm.expect(userId).to.exist;\r",
+                      "});\r",
+                      "\r",
+                      "// Store globally for next requests\r",
+                      "pm.variables.set(\"userId\", userId);\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"Dark\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-register",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "registerUser-firstname-missing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\":\"\",\r\n    \"lastName\": \"Dark\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-register",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "register-user-email-missing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"Dark\",\r\n    \"email\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-register",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "registerUser-wrongEmail format",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"Dark\",\r\n    \"email\": \"jackexample.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-register",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "registerUser-userAlreadyExists",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"Dark\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-register",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "registerUser-lastNameMissing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-register",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-register"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "GetUserProfile",
+          "item": [
+            {
+              "name": "getUserById-success",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/user/getUserById/{{userId}}",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "getUserById",
+                    "{{userId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getUserById-InvalidId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/user/getUserById/b9073a15-e51f-4842-950f-37faa9c63f",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "getUserById",
+                    "b9073a15-e51f-4842-950f-37faa9c63f"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getUserById- IdMissing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/user/getUserById/",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "getUserById",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "EditUserProfile",
+          "item": [
+            {
+              "name": "editUserProfile-success",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/editProfile",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "editProfile"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "editUserProfile-UserId missing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/editProfile",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "editProfile"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "editUserProfile-firstNameMissing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/editProfile",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "editProfile"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "editUserProfile-lastNameMissing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/editProfile",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "editProfile"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "editUserProfile-emailMissing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/editProfile",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "editProfile"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "editUserProfile-invalidEmailFormat",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"jackexample.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/editProfile",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "editProfile"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "DeactivateUser",
+          "item": [
+            {
+              "name": "deactivateUser-success",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"jackexample.com\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-deactivate?userId={{userId}}",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-deactivate"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "{{userId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "reactivateUser-success Copy",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userId\": \"{{userId}}\",\r\n    \"firstName\":\"Jack\",\r\n    \"lastName\": \"DayLightMidNight\",\r\n    \"email\": \"jackexample.com\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}/user/user-reactivate?userId={{userId}}",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "user-reactivate"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "{{userId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "retailer",
+      "item": [
+        {
+          "name": "addNewRetailer-success",
           "event": [
             {
               "listen": "test",
@@ -22,14 +793,57 @@
                   "});\r",
                   "\r",
                   "const jsonData = pm.response.json();\r",
-                  "const userId = jsonData.userId;\r",
+                  "const retailerId = jsonData.retailerId;\r",
                   "\r",
-                  "pm.test(\"User ID is returned\", function () {\r",
-                  "    pm.expect(userId).to.exist;\r",
+                  "pm.test(\"Retailer ID is returned\", function () {\r",
+                  "    pm.expect(retailerId).to.exist;\r",
                   "});\r",
                   "\r",
                   "// Store globally for next requests\r",
-                  "pm.variables.set(\"userId\", userId);\r",
+                  "pm.variables.set(\"retailerId\", retailerId);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"Hi there\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/retailer/register-retailer",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "register-retailer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addNewRetailer-retailerNameMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
                   ""
                 ],
                 "type": "text/javascript",
@@ -43,7 +857,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"email\": \"jack@example.com\"\r\n}",
+              "raw": "{\r\n    \"retailerName\":\"\",\r\n    \"retailerURL\":\"Hi there\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -51,20 +865,150 @@
               }
             },
             "url": {
-              "raw": "{{url}}/user/user-register",
+              "raw": "{{url}}/retailer/register-retailer",
               "host": [
                 "{{url}}"
               ],
               "path": [
-                "user",
-                "user-register"
+                "retailer",
+                "register-retailer"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "registerUser-firstname-missing",
+          "name": "addNewRetailer-retailerURLMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/retailer/register-retailer",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "register-retailer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllRetailers-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\":\"\",\r\n    \"email\": \"jack@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}/retailer/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getRetailerById-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\":\"\",\r\n    \"email\": \"jack@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}/retailer/getRetailerById?retailerId={{retailerId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "getRetailerById"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": "{{retailerId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getRetailerById-missingId",
           "event": [
             {
               "listen": "test",
@@ -81,32 +1025,29 @@
             }
           ],
           "request": {
-            "method": "POST",
+            "method": "GET",
             "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\":\"\",\r\n    \"email\": \"jack@example.com\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{url}}/user/user-register",
+              "raw": "{{url}}/retailer/getRetailerById?retailerId=",
               "host": [
                 "{{url}}"
               ],
               "path": [
-                "user",
-                "user-register"
+                "retailer",
+                "getRetailerById"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": ""
+                }
               ]
             }
           },
           "response": []
         },
         {
-          "name": "register-user-email-missing",
+          "name": "getRetailerById-noRetailerFound",
           "event": [
             {
               "listen": "test",
@@ -122,12 +1063,15 @@
               }
             }
           ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "method": "POST",
+            "method": "GET",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"email\": \"\"\r\n}",
+              "raw": "",
               "options": {
                 "raw": {
                   "language": "json"
@@ -135,62 +1079,26 @@
               }
             },
             "url": {
-              "raw": "{{url}}/user/user-register",
+              "raw": "{{url}}/retailer/getRetailerById?retailerId=a3528f8b-54dd-4f57-aa2e-e589709e23d",
               "host": [
                 "{{url}}"
               ],
               "path": [
-                "user",
-                "user-register"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "registerUser-wrongEmail format",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 400\", function () {\r",
-                  "    pm.response.to.have.status(400);\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"firstName\":\"Jack\",\r\n    \"email\": \"jackexample.com\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+                "retailer",
+                "getRetailerById"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": "a3528f8b-54dd-4f57-aa2e-e589709e23d"
                 }
-              }
-            },
-            "url": {
-              "raw": "{{url}}/user/user-register",
-              "host": [
-                "{{url}}"
-              ],
-              "path": [
-                "user",
-                "user-register"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "getUserById-success",
+          "name": "editRetailer-success",
           "event": [
             {
               "listen": "test",
@@ -207,36 +1115,39 @@
             }
           ],
           "request": {
-            "method": "GET",
+            "method": "PATCH",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerWebURL\":\"How Are You ?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{url}}/user/getUserById?userId={{userId}}",
+              "raw": "{{url}}/retailer/edit-retailer",
               "host": [
                 "{{url}}"
               ],
               "path": [
-                "user",
-                "getUserById"
-              ],
-              "query": [
-                {
-                  "key": "userId",
-                  "value": "{{userId}}"
-                }
+                "retailer",
+                "edit-retailer"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "getUserById-InvalidId",
+          "name": "editRetailer-missingRetailerName",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404\", function () {\r",
-                  "    pm.response.to.have.status(404);\r",
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -246,22 +1157,1179 @@
             }
           ],
           "request": {
-            "method": "GET",
+            "method": "PATCH",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"retailerName\":\"\",\r\n    \"retailerWebURL\":\"How Are You ?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{url}}/user/getUserById?userId=b9073a15-e51f-4842-950f-37faa9c63f",
+              "raw": "{{url}}/retailer/edit-retailer",
               "host": [
                 "{{url}}"
               ],
               "path": [
-                "user",
-                "getUserById"
+                "retailer",
+                "edit-retailer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editRetailer-missingRetailerURL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/retailer/edit-retailer",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "edit-retailer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editRetailer-missingRetailerId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"\",\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"How Are You ?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/retailer/edit-retailer",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "edit-retailer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deactivateRetailer-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"\",\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"How Are You ?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/retailer/deactivate-retailer?retailerId={{retailerId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "deactivate-retailer"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": "{{retailerId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deactivateRetailer-retailerIdMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"\",\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"How Are You ?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/retailer/deactivate-retailer?retailerId=",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "deactivate-retailer"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reactivateRetailer-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"retailerName\":\"Hello world\",\r\n    \"retailerURL\":\"\"\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}/retailer/reactivate-retailer?retailerId={{retailerId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "retailer",
+                "reactivate-retailer"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": "{{retailerId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "cashier",
+      "item": [
+        {
+          "name": "addCashiers-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const jsonData = pm.response.json();\r",
+                  "const cashierId = jsonData[0].cashierId;\r",
+                  "\r",
+                  "pm.test(\"Cashier ID is returned\", function () {\r",
+                  "    pm.expect(cashierId).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "// Store for next requests\r",
+                  "pm.variables.set(\"cashierId\", cashierId);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"123\",\r\n        \"employeeName\":\"Jane\"\r\n    },\r\n        {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"456\",\r\n        \"employeeName\":\"Jone\"\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cashier/addCashiers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cashier",
+                "addCashiers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addCashiers-empty list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"\",\r\n        \"employeeName\":\"\"\r\n    },\r\n        {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"\",\r\n        \"employeeName\":\"\"\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cashier/addCashiers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cashier",
+                "addCashiers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAllCashiers-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"retailerId\":\"1d66d8bc-6ad0-470d-9ae2-1a293b660073\",\r\n        \"employeeId\":\"123\",\r\n        \"employeeName\":\"Jane\"\r\n    },\r\n        {\r\n        \"retailerId\":\"1d66d8bc-6ad0-470d-9ae2-1a293b660073\",\r\n        \"employeeId\":\"456\",\r\n        \"employeeName\":\"Jone\"\r\n    }\r\n]"
+            },
+            "url": {
+              "raw": "{{url}}/cashier/all-cashiers?retailerId={{retailerId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cashier",
+                "all-cashiers"
+              ],
+              "query": [
+                {
+                  "key": "retailerId",
+                  "value": "{{retailerId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deactivateCashier- IdMIssing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"\",\r\n        \"employeeName\":\"\"\r\n    },\r\n        {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"\",\r\n        \"employeeName\":\"\"\r\n    }\r\n]"
+            },
+            "url": {
+              "raw": "{{url}}/cashier/deactivate-cashier?cashierId=",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cashier",
+                "deactivate-cashier"
+              ],
+              "query": [
+                {
+                  "key": "cashierId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deactivateCashier- success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"\",\r\n        \"employeeName\":\"\"\r\n    },\r\n        {\r\n        \"retailerId\":\"{{retailerId}}\",\r\n        \"employeeId\":\"\",\r\n        \"employeeName\":\"\"\r\n    }\r\n]"
+            },
+            "url": {
+              "raw": "{{url}}/cashier/deactivate-cashier?cashierId={{cashierId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cashier",
+                "deactivate-cashier"
+              ],
+              "query": [
+                {
+                  "key": "cashierId",
+                  "value": "{{cashierId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "InitializeCart-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const jsonData = pm.response.json();\r",
+                  "const cartId = jsonData.cartId;\r",
+                  "\r",
+                  "pm.test(\"Cart ID is returned\", function () {\r",
+                  "    pm.expect(cartId).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "// Store globally for next requests\r",
+                  "pm.variables.set(\"cartId\", cartId);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"userId\": \"{{userId}}\",\r\n    \"budget\":0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "InitializeCart-budgetNegative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"userId\":\"{{userId}}\",\r\n    \"budget\":-1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                ""
               ],
               "query": [
                 {
                   "key": "userId",
-                  "value": "b9073a15-e51f-4842-950f-37faa9c63f"
+                  "value": "{{userId}}",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "retailerId",
+                  "value": "{{retailerId}}",
+                  "type": "text",
+                  "disabled": true
                 }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "InitializeCart-userIdMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"{{retailerId}}\",\r\n    \"userId\":\"\",\r\n    \"budget\":0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "InitializeCart-retailerIdMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"\",\r\n    \"userId\":\"{{userId}}\",\r\n    \"budget\":0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCartById-preTransaction",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/cart/getById/{{cartId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "getById",
+                "{{cartId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCartById-IdMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"retailerId\":\"\",\r\n    \"userId\":\"{{userId}}\",\r\n    \"budget\":0\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}/cart/getById?cartId=",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "getById"
+              ],
+              "query": [
+                {
+                  "key": "cartId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addPackagedItem-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"{{cartId}}\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f37\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/add-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "add-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addPackagedItem-noReplication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"{{cartId}}\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f37\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/add-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "add-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addPackagedItem-cartIdMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f37\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/add-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "add-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addPackagedItem-ItemIdMissing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"{{cartId}}\",\r\n    \"itemNumber\":\"\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/add-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "add-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addPackagedItem-ItemNotFound",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f3\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/add-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "add-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "increaseProductQty-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"{{cartId}}\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f37\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/increase-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "increase-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "decreaseProductQty-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"{{cartId}}\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f37\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/decrease-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "decrease-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCartById-postTrasaction",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/cart/getById/{{cartId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "getById",
+                "{{cartId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "removeProduct-success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\":\"{{cartId}}\",\r\n    \"itemNumber\":\"ef363a67-f33c-4c80-b27b-816195975f37\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/cart/remove-packaged",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "cart",
+                "remove-packaged"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCartById-postRemoval",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "/cart/getById/046fb53b-5fc3-4212-bef4-293f0d3dded6",
+              "path": [
+                "cart",
+                "getById",
+                "046fb53b-5fc3-4212-bef4-293f0d3dded6"
               ]
             }
           },
@@ -301,8 +2369,19 @@
     },
     {
       "key": "userId",
-      "value": "",
-      "disabled": true
+      "value": ""
+    },
+    {
+      "key": "retailerId",
+      "value": ""
+    },
+    {
+      "key": "cashierId",
+      "value": ""
+    },
+    {
+      "key": "cartId",
+      "value": ""
     }
   ]
 }
