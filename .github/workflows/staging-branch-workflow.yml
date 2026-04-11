@@ -39,7 +39,7 @@ jobs:
 
       - name: Run PlayWright Tests
         run: |
-          npx playwright tests
+          npx playwright test
 
   performance-tests:
     runs-on: ubuntu-latest
