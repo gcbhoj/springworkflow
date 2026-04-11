@@ -8,4 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface PackagedProductRepository extends JpaRepository<PackagedProduct, String> {
 
     PackagedProduct findByItemNumber(String itemNumber);
-}
+    PackagedProduct findByUpc(String upc);}

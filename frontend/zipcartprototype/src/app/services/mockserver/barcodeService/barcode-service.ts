@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BarCodeScannerResultDTO } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
+import { BarCodeScannerResult } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class BarcodeService {
   constructor(private http: HttpClient) {}
 
   getPackagedProductDetails(
-    barcodeResult: BarCodeScannerResultDTO,
+    barcodeResult: BarCodeScannerResult,
   ): Observable<any> {
     return this.http.post<any>(this.backendUrl + 'scan', barcodeResult);
   }

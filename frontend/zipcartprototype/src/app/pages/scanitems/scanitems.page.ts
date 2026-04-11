@@ -1,20 +1,20 @@
+import { ProductService } from './../../services/springServices/productServices/product-service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BarcodescannerComponent } from 'src/app/components/barcodescanner/barcodescanner.component';
 import { Datasharing } from 'src/app/services/datasharing/datasharing';
-import { BarCodeScannerResultDTO } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
+import { BarCodeScannerResult } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
 import { ScannedProductDisplayComponent } from 'src/app/components/scanned-product-display/scanned-product-display.component';
-import { BarcodeService } from 'src/app/services/mockserver/barcodeService/barcode-service';
 import { ProductInformation } from 'src/app/classes/Models/PackagedProductInformation';
 import { Router } from '@angular/router';
 import { StartShoppingResponse } from 'src/app/classes/DTOs/StartShoppingResponse';
 import { ToastServices } from 'src/app/services/toastService/toast-services';
-import { Cartservices } from 'src/app/services/mockserver/cartservice/cartservices';
 import { PackagedProductRequests } from 'src/app/classes/DTOs/PackagedProductRequests';
 import { IonicModule } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { CalculatorService } from 'src/app/services/calculatorService/calculator-service';
+import { CartService } from 'src/app/services/springServices/cartServices/cart-service';
 
 @Component({
   selector: 'app-scanitems',
@@ -58,48 +58,27 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   scannedPackagedProductRequest: PackagedProductRequests = {
     cartId: '',
-    itemId: '',
+    itemNumber: '',
   };
 
   //barcodes of mock data stored in mock server NOTE:FOR TESTING PURPOSES ONLY
 
-  barcodes: string[] = [
-    '5000112546415',
-    '049000050158',
-    '049000028911',
-    '012000809151',
-    '012000161938',
-    '041508260003',
-    '070847000328',
-    '041800000038',
-    '4902430780010',
-    '044000032029',
-    '028400064505',
-    '028400064529',
-    '016000275410',
-    '030000561516',
-    '048000001234',
-    '034000052356',
-    '037000373925',
-    '040000000452',
-    '041570109843',
-    '041570110000',
-  ];
+  barcodes: string[] = ['5000112546415', '049000050158', '049000028911'];
 
-  barCodeResults: BarCodeScannerResultDTO = {
-    isValid: true,
-    text: '5000112546415',
+  barCodeResults: BarCodeScannerResult = {
+    _isValid: true,
+    upc: '',
     format: '',
     contentType: '',
   };
 
   constructor(
     private dataSharing: Datasharing,
-    private barCodeService: BarcodeService,
+    private productService: ProductService,
     private router: Router,
     private toast: ToastServices,
-    private cartService: Cartservices,
     private calculator: CalculatorService,
+    private cartServices: CartService,
   ) {}
 
   ngOnDestroy(): void {
@@ -130,7 +109,7 @@ export class ScanitemsPage implements OnInit, OnDestroy {
   sharePackagedProductInformation() {
     if (this.packagedProduct) {
       this.dataSharing.exchangePackagedProductInformation(this.packagedProduct);
-      this.scannedPackagedProductRequest.itemId =
+      this.scannedPackagedProductRequest.itemNumber =
         this.packagedProduct.itemNumber;
     }
   }
@@ -153,9 +132,9 @@ export class ScanitemsPage implements OnInit, OnDestroy {
    */
 
   // posting the received bar code to receive the product details
-  sendBarCode() {
-    this.barCodeService
-      .getPackagedProductDetails(this.barCodeResults)
+  sendBarCode(results: BarCodeScannerResult) {
+    this.productService
+      .getProductByBarCode(results)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
@@ -176,14 +155,14 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   //Adding the scanned items to cart
   addScannedItemToCart() {
-    this.cartService
+    this.cartServices
       .addPackagedProductToCart(this.scannedPackagedProductRequest)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           this.toast.showSuccess(response.result);
 
-          this.cartService.getCartByCartId(this.cartInitResponse.cartId);
+          this.cartServices.getCartByCartId(this.cartInitResponse.cartId);
           this.removeScannedItem();
         },
         error: (err) => {
@@ -196,6 +175,12 @@ export class ScanitemsPage implements OnInit, OnDestroy {
   /**
    * FUNCTIONALITIES
    */
+
+  // calling product services with barcode
+
+  getProductDetails() {
+    this.sendBarCode(this.barCodeResults);
+  }
 
   //removing the scanned item when cancel is pressed
   removeScannedItem() {
@@ -219,6 +204,12 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
     // update shared observable
     this.dataSharing.exchangePackagedProductInformation(emptyProduct);
+
+    this.scannedPackagedProductRequest = {
+      cartId: this.cartInitResponse.cartId,
+      itemNumber: '',
+    };
+
     // enabling the scanner
     this.onProductCleared();
     this.addItemsToCartButtonEnabled = false;
@@ -237,5 +228,33 @@ export class ScanitemsPage implements OnInit, OnDestroy {
 
   onProductCleared() {
     this.productDisplayed = false;
+  }
+
+  /**
+   * MOCK FUNCTIONALITIES FOR TESTING PURPOSES
+   */
+
+  generateRandomBarcode() {
+    for (let index = 0; index < this.barcodes.length; index++) {
+      this.barCodeResults = {
+        _isValid: true,
+        upc: this.barcodes[index],
+        format: 'text',
+        contentType: 'text',
+      };
+    }
+  }
+
+  makeAPIRequest() {
+    const randomIndex = Math.floor(Math.random() * this.barcodes.length);
+
+    const result: BarCodeScannerResult = {
+      _isValid: true,
+      upc: this.barcodes[randomIndex],
+      format: 'text',
+      contentType: 'text',
+    };
+
+    this.sendBarCode(result);
   }
 }
