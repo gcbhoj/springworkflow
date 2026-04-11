@@ -10,6 +10,7 @@ module.exports = function (config) {
       require("karma-chrome-launcher"),
       require("karma-jasmine-html-reporter"),
       require("karma-coverage"),
+      require("karma-junit-reporter"),
       require("@angular-devkit/build-angular/plugins/karma"),
     ],
     client: {
@@ -43,13 +44,4 @@ module.exports = function (config) {
     singleRun: false,
     restartOnFileChange: true,
   });
-
-  // ✅ Automatically switch to CI-safe mode if running in CI
-  if (process.env.CI) {
-    config.set({
-      browsers: ["ChromeHeadlessCI"],
-      singleRun: true,
-      autoWatch: false,
-    });
-  }
 };
