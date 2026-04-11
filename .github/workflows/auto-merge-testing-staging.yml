@@ -2,9 +2,11 @@ name: Auto Merge Testing → Staging
 
 on:
   workflow_run:
-    workflows: ["Auto Merge Develop → testing"]
+    workflows: ["CI - Backend & Frontend Tests"]
     types:
       - completed
+    branches: 
+        - testing
 
 permissions:
   contents: write
