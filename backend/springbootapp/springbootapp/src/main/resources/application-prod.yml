@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource:
+    url: jdbc:mysql://db:3306/zipcartdb
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    username: zipcartadmin
+    password: adminpass123
