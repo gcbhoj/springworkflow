@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { LiveWeightComponent } from './live-weight.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LiveWeightComponent', () => {
   let component: LiveWeightComponent;
@@ -9,8 +10,8 @@ describe('LiveWeightComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LiveWeightComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LiveWeightComponent);

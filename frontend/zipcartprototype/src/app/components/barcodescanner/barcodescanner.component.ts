@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BarCodeScannerResultDTO } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
+import { BarCodeScannerResult } from 'src/app/classes/DTOs/BarCodeScannerResultDTO';
 import { Datasharing } from 'src/app/services/datasharing/datasharing';
 import { Input } from '@angular/core';
 import {
@@ -26,7 +26,7 @@ export class BarcodescannerComponent implements OnInit {
   // Storing raw barcode objects returned from ML Kit
   barcodes: Barcode[] = [];
   //Mapping the scanning results to DTO to be transferred to backedn
-  barcodeResults: BarCodeScannerResultDTO[] = [];
+  barcodeResults: BarCodeScannerResult[] = [];
 
   constructor(
     private alertService: AlertServices,
@@ -87,10 +87,10 @@ export class BarcodescannerComponent implements OnInit {
     );
   }
   // Mapping ML Kit Barcode object into application DTO format
-  mapToDto(barcode: Barcode): BarCodeScannerResultDTO {
+  mapToDto(barcode: Barcode): BarCodeScannerResult {
     return {
-      isValid: !!barcode.rawValue,
-      text: barcode.rawValue ?? '',
+      _isValid: !!barcode.rawValue,
+      upc: barcode.rawValue ?? '',
       format: barcode.format?.toString(),
       contentType: barcode.valueType?.toString(),
     };
@@ -98,7 +98,7 @@ export class BarcodescannerComponent implements OnInit {
   // Shares the scanned barcode result with other components using the data sharing service
   // to be shared with scan item page to create a post request
 
-  shareScannedResults(result: BarCodeScannerResultDTO) {
+  shareScannedResults(result: BarCodeScannerResult) {
     this.dataSharing.exchangeBarCodeScannedResults(result);
   }
 }

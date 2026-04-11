@@ -8,8 +8,8 @@ import { UnPackagedProduct } from './UnPackagedProduct';
 export interface Cart {
   cartId: string;
   userId: string;
-  packagedProducts: PackagedProduct[];
-  unpackagedProducts: UnPackagedProduct[];
+  packagedProductList: PackagedProduct[];
+  unpackagedProductList: UnPackagedProduct[];
   hst: number;
   totalAmount: number;
 }

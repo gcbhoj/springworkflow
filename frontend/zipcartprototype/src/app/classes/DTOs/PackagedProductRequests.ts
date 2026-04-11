@@ -5,5 +5,5 @@
 
 export interface PackagedProductRequests {
   cartId: string;
-  itemId: string;
+  itemNumber: string;
 }

@@ -9,8 +9,8 @@ describe('PackageditemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PackageditemComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PackageditemComponent);

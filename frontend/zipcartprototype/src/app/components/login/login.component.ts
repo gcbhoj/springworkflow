@@ -1,10 +1,11 @@
+import { provideHttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginResponse } from 'src/app/classes/DTOs/LoginResponseDTO';
-import { Testservices } from 'src/app/services/mockserver/test/testservices';
 import { Datasharing } from 'src/app/services/datasharing/datasharing';
 import { ToastServices } from 'src/app/services/toastService/toast-services';
 import { IonicModule } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
+import { UserService } from 'src/app/services/springServices/userServices/user-service';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +16,14 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
+  firstUser: string = '';
   logIn: LoginResponse = {
-    userId: '11121314-1516-1718-1920-212223242526',
-    userName: '',
-    message: '',
+    userId: '',
+    firstName: '',
+    email: '',
   };
   constructor(
-    private testService: Testservices,
+    private userService: UserService,
     private dataSharing: Datasharing,
     private toast: ToastServices,
   ) {}
@@ -31,19 +33,35 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loginUser(this.logIn.userId);
-    this.shareLogInResponse();
+    this.getAllUsers();
   }
 
   // temporary implementaion for login with hardcoded user Id
+
+  getAllUsers() {
+    this.userService
+      .loadAllUsers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (users) => {
+          if (users.length > 0) {
+            const firstUser = users[0];
+            this.firstUser = firstUser.userId;
+            this.loginUser(this.firstUser);
+          }
+        },
+        error: (err) => console.error(err),
+      });
+  }
   loginUser(userId: string) {
-    this.testService
+    this.userService
       .logInUser(userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (result: LoginResponse) => {
           this.logIn = result;
-          this.toast.showSuccess(this.logIn.message);
+          this.toast.showSuccess(this.logIn.firstName.toString());
+          this.shareLogInResponse();
         },
         error: (err) => {
           const message = err?.error?.message || 'Unable to login';
