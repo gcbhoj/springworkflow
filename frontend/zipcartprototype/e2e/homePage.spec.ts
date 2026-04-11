@@ -41,3 +41,11 @@ test.describe('Home Page Button Clicks Tests', () => {
     await expect(page).toHaveURL(/tab3/);
   });
 });
+
+test.describe('Home Page Button Clicks Tests', () => {
+  test('Cart Initialization Functionality', async ({ page }) => {
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    await page.getByRole('button', { name: 'Walmart' });
+  });
+});
