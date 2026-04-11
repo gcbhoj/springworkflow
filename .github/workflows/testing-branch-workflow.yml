@@ -5,11 +5,6 @@ on:
     branches:
       - testing
 
-  workflow_run:
-    workflows: ["CI - Backend & Frontend Tests"]
-    types:
-      - completed
-
   pull_request:
     branches:
       - main
@@ -19,47 +14,61 @@ permissions:
   actions: write
 
 jobs:
-  api-tests:
+  test-suite:
     runs-on: ubuntu-latest
-
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Setup Java (REQUIRED for Spring Boot)
+      # ================= BACKEND =================
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
 
-      # Start Backend
       - name: Start Backend
         run: |
           cd backend/springbootapp/springbootapp
           mvn clean install -DskipTests
           mvn spring-boot:run &
-      
-      # Wait for backend
-      - name: Wait for backend to start
+
+      - name: Wait for Backend
         run: sleep 25
 
-      # Setup Node (stable version)
-      - name: Setup Node.js
+      # ================= FRONTEND =================
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
 
-      # Install Newman
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend/zipcartprototype
+          npm install
 
-# Run API tests (currently disabled)
-# - name: Run API tests
-#   run: |
-#     newman run ./collections/zipcart_collection.json
+      - name: Start Frontend
+        run: |
+          cd frontend/zipcartprototype
+          npm start &
 
-      - name: API Tests Placeholder
-        run: echo "API tests are not yet implemented. Skipping for now."
+      - name: Wait for Frontend
+        run: sleep 20
+
+      # ================= PLAYWRIGHT =================
+      - name: Install Playwright
+        run: |
+          cd frontend/zipcartprototype
+          npx playwright install --with-deps
+
+      # ================= API TESTS =================
+      - name: Run API Tests
+        run: |
+          newman run ./collections/zipcart_collection.json
+
+      # ================= E2E + COMPATIBILITY =================
+      - name: Run E2E + Compatibility Tests
+        run: |
+          cd frontend/zipcartprototype
+          npx playwright test

@@ -1,7 +1,5 @@
 import { RequestRedirect } from './../node_modules/undici-types/fetch.d';
 import { test, expect } from '@playwright/test';
-import { StartShopping } from 'src/app/classes/DTOs/StartShoppingDTO';
-import { StartShoppingResponse } from 'src/app/classes/DTOs/StartShoppingResponse';
 
 test.describe('Home Page UI Tests', () => {
   test('Home Page Display Tests', async ({ page }) => {
