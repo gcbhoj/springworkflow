@@ -2325,7 +2325,10 @@
               "raw": ""
             },
             "url": {
-              "raw": "/cart/getById/{{cartId}}",
+              "raw": "{{url}}/cart/getById/{{cartId}}",
+              "host": [
+                "{{url}}"
+              ],
               "path": [
                 "cart",
                 "getById",
@@ -2365,7 +2368,7 @@
   "variable": [
     {
       "key": "url",
-      "value": "http://localhost:5000/api/v1/"
+      "value": "http://localhost:5000/api/v1"
     },
     {
       "key": "userId",
