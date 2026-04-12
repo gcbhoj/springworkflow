@@ -37,9 +37,9 @@ jobs:
           git merge origin/develop --no-edit
           git push origin testing
 
-      - name: Trigger CI on testing   # ✅ THIS FIXES YOUR ISSUE
-        run: |
-          gh workflow run "CI - Backend & Frontend Tests" --ref testing
-          gh workflow run "Testing Branch Workflow"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Trigger CI on testing   # ✅ THIS FIXES YOUR ISSUE
+      #   run: |
+      #     gh workflow run "CI - Backend & Frontend Tests" --ref testing
+      #     gh workflow run "Testing Branch Workflow"
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
