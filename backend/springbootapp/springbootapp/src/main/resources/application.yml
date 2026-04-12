@@ -1,14 +1,6 @@
 spring:
   profiles:
-    active: dev
-
-  servlet:
-    multipart:
-      max-file-size:50MB
-
-springdoc:
-  default-produces-media-type: application/json
-
+    active: prod
 
 server:
   port: 5000

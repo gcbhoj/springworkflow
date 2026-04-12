@@ -20,6 +20,8 @@ public class Retailer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String retailerId;
+
+
     @Column(nullable = false)
     private String retailerName;
     @Column(nullable = false)
