@@ -3,12 +3,12 @@ name: Testing Branch Workflow
 on:
   push:
     branches:
-      -testing
+      - testing
 
   pull_request:
     branches:
-      -testing
-      
+      - testing
+
   workflow_dispatch:
 
 permissions:
@@ -17,9 +17,6 @@ permissions:
 
 jobs:
   test-suite:
-    if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'develop'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -60,7 +57,7 @@ jobs:
       - name: Wait for Frontend
         run: sleep 20
 
-        - name: Install Playwright
+      - name: Install Playwright
         run: |
           cd frontend/zipcartprototype
           npx playwright install --with-deps
