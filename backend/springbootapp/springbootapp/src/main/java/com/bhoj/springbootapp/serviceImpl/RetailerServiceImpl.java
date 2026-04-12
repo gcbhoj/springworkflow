@@ -140,11 +140,9 @@ public class RetailerServiceImpl implements RetailerService {
             throw new UserCreationException("RETAILER NAME IS REQUIRED");
         }
 
-        Retailer retailer = retailerRepo.findByRetailerName(retailerName);
+        Retailer retailer = retailerRepo.findByRetailerName(retailerName)
+                .orElseThrow(() -> new UserCreationException("NO RETAILER FOUND"));
 
-        if(retailer == null){
-            throw new UserCreationException("NO RETAILER FOUND BY GIVEN NAME");
-        }
 
         return  retailer;
     }
