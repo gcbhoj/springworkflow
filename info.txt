@@ -6,4 +6,4 @@ running docker db locally - docker exec -it zipcart-mysql mysql -u zipcartuser -
  removing sql data docker volume rm mysql-data
 
 
-"Hello World! This is my send last try! keep trying"
+"Hello World! This is my send last try! keep trying again and again"
