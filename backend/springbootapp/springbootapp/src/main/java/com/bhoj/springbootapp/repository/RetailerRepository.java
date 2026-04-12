@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface RetailerRepository extends JpaRepository<Retailer, String> {
 
-    Retailer findByRetailerName(String retailerName);
+   Optional< Retailer> findByRetailerName(String retailerName);
     List<Retailer> findByStatus(RetailerStatus status);
 }
