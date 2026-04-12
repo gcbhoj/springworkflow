@@ -7,14 +7,13 @@ on:
       - completed
 
 permissions:
-  contents: write
-  actions: write
+  contents: read
 
 jobs:
   test:
     if: github.event.workflow_run.conclusion == 'success'
 
-    runs-on: ubuntu-latest   # ✅ Docker-safe OS
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout staging branch
@@ -23,13 +22,14 @@ jobs:
           ref: staging
 
       # ================= DOCKER =================
-      - name: Set up env variables
-        run:  echo "DOCKER_USER_NAME=${{ secrets.DOCKER_USER_NAME }}" >> .env
-        
       - name: Login to Docker Hub
-        run:  echo "${{ secrets.DOCKER_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USER_NAME }}" --password-stdin
-        
-      - name: Start Containers
+        env:
+          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
+          DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        run: |
+          echo "$DOCKER_ACCESS_TOKEN" | docker login -u "$DOCKER_USER_NAME" --password-stdin
+
+      - name: Build and Start Containers
         run: docker compose up -d --build
 
       - name: Wait for services
@@ -51,7 +51,6 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run E2E Tests
-        working-directory: ./frontend/zipcartprototype
         run: echo "End to End Testing and Compatibility Testing success"
 
       # ================= CLEANUP =================
