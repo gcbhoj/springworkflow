@@ -1,8 +1,8 @@
 name: Staging Branch Workflow
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - staging
   pull_request:
     branches:
@@ -28,7 +28,6 @@ jobs:
       - name: Install frontend deps
         working-directory: ./frontend/zipcartprototype
         run: npm install
-
 
       - name: Install Playwright
         echo: "End to End Testing and Compatibility Testing success"
