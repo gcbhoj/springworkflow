@@ -36,4 +36,3 @@ jobs:
           git pull origin staging
           git merge origin/testing --no-edit
           git push origin staging
-
