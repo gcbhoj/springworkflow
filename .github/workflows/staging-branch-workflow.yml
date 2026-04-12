@@ -20,23 +20,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # -----------------------------
-      # Install Node (same version everywhere)
-      # -----------------------------
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # -----------------------------
-      # Install deps
-      # -----------------------------
       - name: Install frontend deps
         working-directory: ./frontend/zipcartprototype
         run: npm install
 
-      # -----------------------------
-      # Install Playwright
-      # -----------------------------
+
       - name: Install Playwright
         echo: "End to End Testing and Compatibility Testing success"

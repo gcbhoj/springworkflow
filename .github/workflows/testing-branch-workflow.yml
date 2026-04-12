@@ -55,18 +55,15 @@ jobs:
       - name: Wait for Frontend
         run: sleep 20
 
-      # ================= PLAYWRIGHT =================
-      - name: Install Playwright
+        - name: Install Playwright
         run: |
           cd frontend/zipcartprototype
           npx playwright install --with-deps
 
-      # ================= API TESTS =================
       - name: Run API Tests
         run: |
           newman run ./collections/zipcart_collection
 
-      # ================= E2E + COMPATIBILITY =================
       - name: Run E2E + Compatibility Tests
         run: |
           cd frontend/zipcartprototype
