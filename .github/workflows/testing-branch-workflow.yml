@@ -1,11 +1,10 @@
 name: Testing Branch Workflow
 
 on:
-  workflow_run:
-    workflows: ["CI - Backend & Frontend Tests"]
-    types:
-      - completed
-
+  push:
+    branches:
+      -testing
+  workflow_dispatch:
 permissions:
   contents: write
   actions: write

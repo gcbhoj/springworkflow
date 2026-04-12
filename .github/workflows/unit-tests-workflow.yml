@@ -4,13 +4,11 @@ on:
   push:
     branches:
       - develop
-
       - testing
       - "version/*"
   pull_request:
     branches:
       - develop
-
       - testing
   workflow_dispatch:
 
