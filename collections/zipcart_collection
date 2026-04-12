@@ -2365,7 +2365,7 @@
   "variable": [
     {
       "key": "url",
-      "value": "http://localhost:5000/api/v1"
+      "value": "http://localhost:5000/api/v1/"
     },
     {
       "key": "userId",
