@@ -4,7 +4,13 @@ on:
   push:
     branches:
       -testing
+
+  pull_request:
+    branches:
+      -testing
+      
   workflow_dispatch:
+
 permissions:
   contents: write
   actions: write
