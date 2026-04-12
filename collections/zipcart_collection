@@ -2325,11 +2325,11 @@
               "raw": ""
             },
             "url": {
-              "raw": "/cart/getById/046fb53b-5fc3-4212-bef4-293f0d3dded6",
+              "raw": "/cart/getById/{{cartId}}",
               "path": [
                 "cart",
                 "getById",
-                "046fb53b-5fc3-4212-bef4-293f0d3dded6"
+                "{{cartId}}"
               ]
             }
           },
