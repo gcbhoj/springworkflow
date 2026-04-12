@@ -15,8 +15,7 @@ jobs:
     # 1. Merge workflow succeeded
     # 2. It was merging from develop branch
     if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'develop'
+      github.event.workflow_run.conclusion == 'success' 
 
     runs-on: ubuntu-latest
 
