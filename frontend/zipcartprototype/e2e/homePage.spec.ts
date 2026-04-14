@@ -45,7 +45,9 @@ test.describe('Home Page Cart Initialization ', () => {
     let apiCalled = false;
 
     // ✅ Intercept API
-    await page.route('**/api/v1/cart**', async (route) => {
+    await page.route('http://localhost:5000/api/v1/cart/', async (route) => {
+      console.log('MOCK HIT:', route.request().url());
+
       apiCalled = true;
 
       await route.fulfill({
@@ -69,11 +71,61 @@ test.describe('Home Page Cart Initialization ', () => {
 
     await alert.getByRole('button', { name: 'Cancel' }).click();
 
-    // ✅ Wait for API call to happen
+    // Wait for API call to happen
     await page.waitForTimeout(500); // small buffer for async logic
 
-    // ✅ Assert API was triggered
+    // Assert API was triggered
     expect(apiCalled).toBe(true);
     await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
   });
+  test('Must call API after Adding Budget', async ({ page }) => {
+    let apiCalled = false;
+
+    await page.route('http://localhost:5000/api/v1/cart/', async (route) => {
+      apiCalled = true;
+
+      await route.fulfill({
+        json: {
+          cartId: '123',
+          retailerName: 'hello world',
+          budget: 100,
+          message: 'HAPPY SHOPPING',
+        },
+      });
+    });
+
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    // Step 1: Click Walmart
+    await page.getByRole('button', { name: 'Walmart' }).click();
+
+    // Step 2: First alert (confirm)
+    const firstAlert = page.locator('ion-alert').first();
+    await expect(firstAlert).toBeVisible();
+
+    await firstAlert.getByRole('button', { name: 'OK' }).click();
+
+    // Step 3: Second alert (budget input)
+    const secondAlert = page.locator('ion-alert').last();
+    await expect(secondAlert).toBeVisible();
+
+    // Step 4: Fill input in second alert
+    const input = secondAlert.locator('input');
+    await expect(input).toBeVisible();
+    await input.fill('100');
+
+    // Step 5: Confirm budget
+    await secondAlert.getByRole('button', { name: 'OK' }).click();
+
+    // Step 6: Wait for API
+    await page.waitForResponse((res) =>
+      res.url().includes('http://localhost:5000/api/v1/cart/'),
+    );
+
+    expect(apiCalled).toBe(true);
+
+    // Step 7: UI check
+    await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
+  });
+
 });
