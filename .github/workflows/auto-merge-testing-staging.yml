@@ -36,3 +36,9 @@ jobs:
           git pull origin staging
           git merge origin/testing --no-edit
           git push origin staging
+
+      - name: Trigger CI on staging   
+        run: |
+          gh workflow run "CI - Backend & Frontend Tests" --ref staging
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
