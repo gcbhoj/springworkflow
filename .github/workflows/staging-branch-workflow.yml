@@ -28,7 +28,7 @@ jobs:
           DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
           DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
         run: |
-          echo "$DOCKER_ACCESS_TOKEN" | docker login -u "$DOCKER_USER_NAME" --password-stdin
+          echo "DOCKER_USER_NAME=${{ secrets.DOCKER_USER_NAME }}" >> .env
 
       - name: Build and Start Containers
         run: docker compose up -d --build
