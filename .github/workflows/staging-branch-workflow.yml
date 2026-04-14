@@ -1,10 +1,12 @@
 name: Staging Branch Workflow
 
 on:
-  workflow_run:
-    workflows: ["Auto Merge Testing → Staging"]
-    types:
-      - completed
+  push:
+    branches:
+      - staging
+  pull_request: 
+    branches:
+      - staging
 
 permissions:
   contents: write
@@ -12,10 +14,6 @@ permissions:
 
 jobs:
   test:
-    if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.name == 'Auto Merge Testing → Staging'
-
     runs-on: ubuntu-latest
 
     steps:
