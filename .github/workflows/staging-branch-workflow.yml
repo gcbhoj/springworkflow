@@ -1,10 +1,12 @@
 name: Staging Branch Workflow
 
 on:
-  workflow_run:
-    workflows: ["Auto Merge Testing → Staging"]
-    types:
-      - completed
+  push:
+    branches:
+      - staging
+  pull_request: 
+    branches:
+      - staging
 
 permissions:
   contents: write
@@ -12,10 +14,6 @@ permissions:
 
 jobs:
   test:
-    if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.name == 'Auto Merge Testing → Staging'
-
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +28,7 @@ jobs:
           DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
           DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
         run: |
-          echo "$DOCKER_ACCESS_TOKEN" | docker login -u "$DOCKER_USER_NAME" --password-stdin
+          echo "DOCKER_USER_NAME=${{ secrets.DOCKER_USER_NAME }}" >> .env
 
       - name: Build and Start Containers
         run: docker compose up -d --build
