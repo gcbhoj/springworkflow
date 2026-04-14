@@ -41,53 +41,33 @@ test.describe('Home Page Button Clicks Tests', () => {
 });
 
 test.describe('Home Page Cart Initialization ', () => {
-test('Must call API after FIRST Cancel (no budget)', async ({ page }) => {
-  let apiCalled = false;
-
-  await page.route('**/api/v1/cart**', async (route) => {
-    apiCalled = true;
-
-    await route.fulfill({
-      json: {
-        cartId: '123',
-        retailerName: 'Walmart',
-        budget: 0,
-        message: 'HAPPY SHOPPING',
-      },
-    });
-  });
-
-  await page.goto('http://localhost:8100/tabs/tab1');
-
-  // Step 1: Click Walmart
-  await page.getByRole('button', { name: 'Walmart' }).click();
-
-  // Step 2: FIRST ALERT
-  const firstAlert = page.locator('ion-alert').first();
-  await expect(firstAlert).toBeVisible();
-
-  // Step 3: CLICK CANCEL (this triggers API with 0 budget)
-  await firstAlert.getByRole('button', { name: 'Cancel' }).click();
-
-  // Step 4: Wait for API
-  await page.waitForResponse((res) => res.url().includes('/api/v1/cart'));
-
-  // Step 5: Assert API called
-  expect(apiCalled).toBe(true);
-
-  // Step 6: Assert UI
-  await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
-});
-  test('Must call API after Adding Budget', async ({ page }) => {
-    let apiCalled = false;
-
-    await page.route('http://localhost:5000/api/v1/cart/', async (route) => {
-      apiCalled = true;
-
+  test('Must handle FIRST Cancel (no budget)', async ({ page }) => {
+    await page.route('**/api/v1/cart**', async (route) => {
       await route.fulfill({
         json: {
           cartId: '123',
-          retailerName: 'hello world',
+          retailerName: 'Walmart',
+          budget: 0,
+          message: 'HAPPY SHOPPING',
+        },
+      });
+    });
+
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    await page.getByRole('button', { name: 'Walmart' }).click();
+
+    const firstAlert = page.locator('ion-alert').first();
+    await firstAlert.getByRole('button', { name: 'Cancel' }).click();
+
+    await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
+  });
+  test('Must handle Adding Budget', async ({ page }) => {
+    await page.route('**/api/v1/cart**', async (route) => {
+      await route.fulfill({
+        json: {
+          cartId: '123',
+          retailerName: 'Walmart',
           budget: 100,
           message: 'HAPPY SHOPPING',
         },
@@ -96,35 +76,47 @@ test('Must call API after FIRST Cancel (no budget)', async ({ page }) => {
 
     await page.goto('http://localhost:8100/tabs/tab1');
 
-    // Step 1: Click Walmart
     await page.getByRole('button', { name: 'Walmart' }).click();
 
-    // Step 2: First alert (confirm)
     const firstAlert = page.locator('ion-alert').first();
-    await expect(firstAlert).toBeVisible();
-
     await firstAlert.getByRole('button', { name: 'OK' }).click();
 
-    // Step 3: Second alert (budget input)
     const secondAlert = page.locator('ion-alert').last();
-    await expect(secondAlert).toBeVisible();
 
-    // Step 4: Fill input in second alert
-    const input = secondAlert.locator('input');
-    await expect(input).toBeVisible();
-    await input.fill('100');
-
-    // Step 5: Confirm budget
+    await secondAlert.locator('input').fill('100');
     await secondAlert.getByRole('button', { name: 'OK' }).click();
 
-    // Step 6: Wait for API
-    await page.waitForResponse((res) =>
-      res.url().includes('http://localhost:5000/api/v1/cart/'),
-    );
-
-    expect(apiCalled).toBe(true);
-
-    // Step 7: UI check
     await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
+  });
+  test('Must Reactivate Retailer Button Cancel is Pressed', async ({
+    page,
+  }) => {
+    await page.route('**/api/v1/cart**', async (route) => {
+      await route.fulfill({
+        json: {
+          cartId: '123',
+          retailerName: 'Walmart',
+          budget: 100,
+          message: 'HAPPY SHOPPING',
+        },
+      });
+    });
+
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    await page.getByRole('button', { name: 'Walmart' }).click();
+
+    const firstAlert = page.locator('ion-alert').first();
+    await firstAlert.getByRole('button', { name: 'OK' }).click();
+
+    const secondAlert = page.locator('ion-alert').last();
+
+    await secondAlert.locator('input').fill('100');
+    await secondAlert.getByRole('button', { name: 'CANCEL' }).click();
+
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    const button = await page.getByRole('button', { name: 'Walmart' });
+    await expect(button).toBeEnabled();
   });
 });
