@@ -40,5 +40,6 @@ jobs:
       - name: Trigger CI on staging   
         run: |
           gh workflow run "CI - Backend & Frontend Tests" --ref staging
+          gh workflow run "Staging Branch Workflow"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
