@@ -85,7 +85,12 @@ export class Tab1Page implements OnInit {
 
       // Cancel pressed
       () => {
-        this.enableRetailerButton();
+        const dto = this.mapToStartShoppingDTO(
+          this.login.userId,
+          retailerId,
+          this.budget,
+        );
+        this.initializeCartForShopper(dto);
       },
     );
   }

@@ -41,43 +41,43 @@ test.describe('Home Page Button Clicks Tests', () => {
 });
 
 test.describe('Home Page Cart Initialization ', () => {
-  test('Must call API after Cancel', async ({ page }) => {
-    let apiCalled = false;
+test('Must call API after FIRST Cancel (no budget)', async ({ page }) => {
+  let apiCalled = false;
 
-    // ✅ Intercept API
-    await page.route('http://localhost:5000/api/v1/cart/', async (route) => {
-      console.log('MOCK HIT:', route.request().url());
+  await page.route('**/api/v1/cart**', async (route) => {
+    apiCalled = true;
 
-      apiCalled = true;
-
-      await route.fulfill({
-        json: {
-          cartId: '123',
-          retailerName: 'hello world',
-          budget: 0,
-          message: 'HAPPY SHOPPING',
-        },
-      });
+    await route.fulfill({
+      json: {
+        cartId: '123',
+        retailerName: 'Walmart',
+        budget: 0,
+        message: 'HAPPY SHOPPING',
+      },
     });
-
-    await page.goto('http://localhost:8100/tabs/tab1');
-
-    // Click Walmart
-    await page.getByRole('button', { name: 'Walmart' }).click();
-
-    // Wait for alert and click Cancel
-    const alert = page.locator('ion-alert');
-    await expect(alert).toBeVisible();
-
-    await alert.getByRole('button', { name: 'Cancel' }).click();
-
-    // Wait for API call to happen
-    await page.waitForTimeout(500); // small buffer for async logic
-
-    // Assert API was triggered
-    expect(apiCalled).toBe(true);
-    await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
   });
+
+  await page.goto('http://localhost:8100/tabs/tab1');
+
+  // Step 1: Click Walmart
+  await page.getByRole('button', { name: 'Walmart' }).click();
+
+  // Step 2: FIRST ALERT
+  const firstAlert = page.locator('ion-alert').first();
+  await expect(firstAlert).toBeVisible();
+
+  // Step 3: CLICK CANCEL (this triggers API with 0 budget)
+  await firstAlert.getByRole('button', { name: 'Cancel' }).click();
+
+  // Step 4: Wait for API
+  await page.waitForResponse((res) => res.url().includes('/api/v1/cart'));
+
+  // Step 5: Assert API called
+  expect(apiCalled).toBe(true);
+
+  // Step 6: Assert UI
+  await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
+});
   test('Must call API after Adding Budget', async ({ page }) => {
     let apiCalled = false;
 
@@ -127,5 +127,4 @@ test.describe('Home Page Cart Initialization ', () => {
     // Step 7: UI check
     await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
   });
-
 });
