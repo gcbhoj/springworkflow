@@ -88,4 +88,35 @@ test.describe('Home Page Cart Initialization ', () => {
 
     await expect(page.getByText('HAPPY SHOPPING')).toBeVisible();
   });
+  test('Must Reactivate Retailer Button Cancel is Pressed', async ({
+    page,
+  }) => {
+    await page.route('**/api/v1/cart**', async (route) => {
+      await route.fulfill({
+        json: {
+          cartId: '123',
+          retailerName: 'Walmart',
+          budget: 100,
+          message: 'HAPPY SHOPPING',
+        },
+      });
+    });
+
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    await page.getByRole('button', { name: 'Walmart' }).click();
+
+    const firstAlert = page.locator('ion-alert').first();
+    await firstAlert.getByRole('button', { name: 'OK' }).click();
+
+    const secondAlert = page.locator('ion-alert').last();
+
+    await secondAlert.locator('input').fill('100');
+    await secondAlert.getByRole('button', { name: 'CANCEL' }).click();
+
+    await page.goto('http://localhost:8100/tabs/tab1');
+
+    const button = await page.getByRole('button', { name: 'Walmart' });
+    await expect(button).toBeEnabled();
+  });
 });
