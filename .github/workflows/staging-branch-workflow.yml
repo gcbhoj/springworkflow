@@ -2,7 +2,7 @@ name: Staging Branch Workflow
 
 on:
   workflow_run:
-    workflows: ["Auto Merge Testing → Staging"]  # must match EXACT name
+    workflows: ["Auto Merge Testing → Staging"] # must match EXACT name
     types:
       - completed
 
@@ -15,7 +15,6 @@ jobs:
     if: >
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout staging branch
         uses: actions/checkout@v4
