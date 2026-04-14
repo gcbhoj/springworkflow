@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { WeighedProductDisplayComponent } from './weighed-product-display.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('WeighedProductDisplayComponent', () => {
   let component: WeighedProductDisplayComponent;
@@ -9,8 +10,8 @@ describe('WeighedProductDisplayComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WeighedProductDisplayComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WeighedProductDisplayComponent);

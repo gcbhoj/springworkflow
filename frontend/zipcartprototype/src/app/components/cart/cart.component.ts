@@ -2,7 +2,6 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { PackagedProduct } from '../../classes/Models/PackagedProduct';
 import { UnPackagedProduct } from '../../classes/Models/UnPackagedProduct';
 import { Cart } from 'src/app/classes/Models/Cart';
-import { Cartservices } from '../../services/mockserver/cartservice/cartservices';
 import { Datasharing } from '../../services/datasharing/datasharing';
 import { PackageditemComponent } from '../packageditem/packageditem.component';
 import { UnpackageditemComponent } from '../unpackageditem/unpackageditem.component';
@@ -14,6 +13,7 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { BarcodeDisplayComponent } from '../barcode-display/barcode-display.component';
 import { ToastServices } from 'src/app/services/toastService/toast-services';
+import { CartService } from 'src/app/services/springServices/cartServices/cart-service';
 
 @Component({
   selector: 'app-cart',
@@ -41,8 +41,8 @@ export class CartComponent implements OnInit, OnDestroy {
   };
   login: LoginResponse = {
     userId: '',
-    userName: '',
-    message: '',
+    firstName: '',
+    email: '',
   };
 
   // initializing the cart interface to share packaged product and unpackaged product
@@ -61,12 +61,12 @@ export class CartComponent implements OnInit, OnDestroy {
 
   finalImageSrc: string = '';
   constructor(
-    private cartService: Cartservices,
     private dataSharing: Datasharing,
     private calculator: CalculatorService,
     private modalCtrl: ModalController,
     private toast: ToastServices,
     private zone: NgZone,
+    private cartServices: CartService,
   ) {}
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -78,6 +78,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.receiveCartInitResponse();
     this.receivePackagedProductTotal();
     this.receiveUnPackagedProductTotal();
+
+    this.subscribeToCart();
   }
   /**
    * DATA SHARING
@@ -138,8 +140,6 @@ export class CartComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
   enableRetailerButton() {
     this.zone.run(() => {
       this.dataSharing.updateRetailerButtonState(true);
@@ -153,25 +153,27 @@ export class CartComponent implements OnInit, OnDestroy {
    *  GET REQUEST TO FETCH CART BY ID
    */
 
+  subscribeToCart() {
+    this.cartServices.cart$.pipe(takeUntil(this.destroy$)).subscribe((cart) => {
+      if (!cart) return;
+
+      this.completeCart = cart;
+      this.packagedProduct = cart.packagedProductList;
+      this.unpackagedProduct = cart.unpackagedProductList;
+
+      this.sharePackagedProduct();
+      this.shareUnPackagedProduct();
+      this.performCalculations();
+    });
+  }
+
   fetchCartByCartId(cartId: string) {
-    this.cartService.getCartByCartId(cartId);
-    this.cartService.cart$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((cart: Cart | null) => {
-        if (cart) {
-          this.completeCart = cart;
-          this.packagedProduct = cart.packagedProducts;
-          this.unpackagedProduct = cart.unpackagedProducts;
-          this.sharePackagedProduct();
-          this.shareUnPackagedProduct();
-          this.performCalculations();
-        }
-      });
+    this.cartServices.getCartByCartId(cartId);
   }
 
   // COMPLETE SHOPPING
   async completeShopping() {
-    this.cartService
+    this.cartServices
       .completeShopping(this.cartInitResponse.cartId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({

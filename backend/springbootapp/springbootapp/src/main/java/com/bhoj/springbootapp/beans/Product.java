@@ -1,5 +1,6 @@
 package com.bhoj.springbootapp.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -34,6 +35,7 @@ public abstract class Product {
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "retailer_id")
+    @JsonIgnore
     private Retailer retailer;
 
 

@@ -1,5 +1,6 @@
 package com.bhoj.springbootapp.serviceImpl;
 
+import com.bhoj.springbootapp.DTO.BarCodeRequest;
 import com.bhoj.springbootapp.DTO.PackagedProductDTO;
 import com.bhoj.springbootapp.beans.PackagedProduct;
 import com.bhoj.springbootapp.exceptionHandler.UserCreationException;
@@ -28,5 +29,20 @@ public class PackagedProductServiceImpl implements PackagedProductServices {
         return retrievedProduct;
 
 
+    }
+
+    @Override
+    public PackagedProduct getProductByUPC(BarCodeRequest request) {
+        if(request.getUpc() == null || request.getUpc().isEmpty()){
+            throw  new UserCreationException("MISSING BAR CODE VALUE");
+        }
+
+        PackagedProduct product = productRepo.findByUpc(request.getUpc());
+
+        if(product == null){
+            throw new UserCreationException("NO PRODUCT FOUND BY GIVEN BAR CODE VALUE");
+        }
+
+        return  product;
     }
 }

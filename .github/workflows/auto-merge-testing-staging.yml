@@ -2,9 +2,10 @@ name: Auto Merge Testing → Staging
 
 on:
   workflow_run:
-    workflows: ["Auto Merge Develop → testing"]
+    workflows: ["Testing Branch Workflow"]
     types:
       - completed
+
 
 permissions:
   contents: write
@@ -13,8 +14,7 @@ permissions:
 jobs:
   merge:
     if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'testing'
+      github.event.workflow_run.conclusion == 'success' 
     runs-on: ubuntu-latest
 
     steps:
@@ -36,9 +36,3 @@ jobs:
           git pull origin staging
           git merge origin/testing --no-edit
           git push origin staging
-
-      # - name: Trigger CI on testing   # ✅ THIS FIXES YOUR ISSUE
-      #   run: |
-      #     gh workflow run "CI - Backend & Frontend Tests" --ref testing
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: zipcart-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: zipcart
+      MYSQL_USER: zipcartadmin
+      MYSQL_PASSWORD: adminpass123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend/springbootapp/springbootapp
+    container_name: zipcart-springserviecs
+    image: ${DOCKER_USER_NAME}/zipcart-backend:latest
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/zipcart
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_USERNAME: zipcartadmin
+      SPRING_DATASOURCE_PASSWORD: adminpass123
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend/zipcartprototype
+    container_name: zipcart-clientservies
+    image: ${DOCKER_USER_NAME}/zipcart-frontend:latest
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql-data:
