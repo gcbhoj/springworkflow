@@ -1,12 +1,10 @@
 name: Staging Branch Workflow
 
 on:
-  push:
-    branches:
-      - staging
-  pull_request: 
-    branches:
-      - staging
+  workflow_run:
+    workflows: ["Auto Merge Testing → Staging"]  # must match EXACT name
+    types:
+      - completed
 
 permissions:
   contents: write
