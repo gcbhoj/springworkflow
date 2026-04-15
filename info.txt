@@ -3,7 +3,7 @@ running docker db locally - docker exec -it zipcart-mysql mysql -u zipcartuser -
 
  e2e testing debugging npx playwright codegen http://localhost:8100/tabs/tab1
 
- removing sql data docker volume rm mysql-data
+ removing sql data docker volume rm springworkflow_mysql-data
 
 
-"Hello World! This is my send last try! keep trying again and again"
+"Hello World! This is my send last try! keep trying again and again and again"
