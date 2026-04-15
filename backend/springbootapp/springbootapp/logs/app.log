@@ -1512,3 +1512,97 @@ com.bhoj.springbootapp.exceptionHandler.UserCreationException: USER ALREADY HAS 
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 2026-04-14 10:00:26 [http-nio-5000-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.bhoj.springbootapp.exceptionHandler.UserCreationException: USER ALREADY HAS AN ACTIVE CART]
+2026-04-15 11:01:12 [restartedMain] INFO  c.b.s.SpringbootappApplication - Starting SpringbootappApplication using Java 21.0.2 with PID 8056 (C:\Users\gcbho\OneDrive\Desktop\CompleteProject\workflows\springworkflow\backend\springbootapp\springbootapp\target\classes started by gcbho in C:\Users\gcbho\OneDrive\Desktop\CompleteProject\workflows\springworkflow\backend\springbootapp\springbootapp)
+2026-04-15 11:01:12 [restartedMain] INFO  c.b.s.SpringbootappApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-15 11:01:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-15 11:01:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-15 11:01:12 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-15 11:01:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-15 11:01:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 98 ms. Found 6 JPA repository interfaces.
+2026-04-15 11:01:14 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
+2026-04-15 11:01:14 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-5000"]
+2026-04-15 11:01:14 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-15 11:01:14 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-15 11:01:14 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2256 ms
+2026-04-15 11:01:14 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-15 11:01:15 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:7a870b41-f10b-43ab-be3c-445f23e1dd42 user=SA
+2026-04-15 11:01:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-15 11:01:15 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-15 11:01:15 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-15 11:01:17 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-15 11:01:17 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:7a870b41-f10b-43ab-be3c-445f23e1dd42]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 7A870B41-F10B-43AB-BE3C-445F23E1DD42/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-15 11:01:19 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-15 11:01:19 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 11:01:20 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-15 11:01:20 [restartedMain] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-15 11:01:21 [restartedMain] WARN  o.s.b.t.a.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2026-04-15 11:01:21 [restartedMain] INFO  o.s.b.h.a.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:7a870b41-f10b-43ab-be3c-445f23e1dd42'
+2026-04-15 11:01:21 [restartedMain] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-04-15 11:01:21 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-5000"]
+2026-04-15 11:01:21 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api/v1'
+2026-04-15 11:01:21 [restartedMain] INFO  c.b.s.SpringbootappApplication - Started SpringbootappApplication in 10.364 seconds (process running for 11.513)
+2026-04-15 11:01:42 [http-nio-5000-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api/v1] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-15 11:01:42 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-15 11:01:42 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-04-15 11:03:22 [http-nio-5000-exec-9] INFO  c.b.s.controllers.CartController - Cart Initialization Request: InitializeCart(userId=9c418e33-8ff3-498a-97af-6d470311007d, retailerId=ba1036a0-3232-4c37-bdb3-82c58ea5caee, budget=0)
+2026-04-15 11:03:36 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-15 11:03:36 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-15 11:03:36 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 11:03:36 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+2026-04-15 11:03:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-15 11:03:36 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-15 11:03:40 [restartedMain] INFO  c.b.s.SpringbootappApplication - Starting SpringbootappApplication using Java 21.0.2 with PID 11000 (C:\Users\gcbho\OneDrive\Desktop\CompleteProject\workflows\springworkflow\backend\springbootapp\springbootapp\target\classes started by gcbho in C:\Users\gcbho\OneDrive\Desktop\CompleteProject\workflows\springworkflow\backend\springbootapp\springbootapp)
+2026-04-15 11:03:40 [restartedMain] INFO  c.b.s.SpringbootappApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-15 11:03:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-15 11:03:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-15 11:03:41 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-15 11:03:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-15 11:03:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 94 ms. Found 6 JPA repository interfaces.
+2026-04-15 11:03:42 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
+2026-04-15 11:03:42 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-5000"]
+2026-04-15 11:03:42 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-15 11:03:42 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-15 11:03:42 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2151 ms
+2026-04-15 11:03:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-15 11:03:43 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:acd7c88f-932b-4fde-9f6a-1fb1a129ddff user=SA
+2026-04-15 11:03:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-15 11:03:43 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-15 11:03:43 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-15 11:03:44 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-15 11:03:44 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:acd7c88f-932b-4fde-9f6a-1fb1a129ddff]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: ACD7C88F-932B-4FDE-9F6A-1FB1A129DDFF/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-15 11:03:47 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-15 11:03:47 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-15 11:03:47 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-15 11:03:48 [restartedMain] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-15 11:03:49 [restartedMain] WARN  o.s.b.t.a.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2026-04-15 11:03:50 [restartedMain] INFO  o.s.b.h.a.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:acd7c88f-932b-4fde-9f6a-1fb1a129ddff'
+2026-04-15 11:03:50 [restartedMain] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-04-15 11:03:50 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-5000"]
+2026-04-15 11:03:50 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api/v1'
+2026-04-15 11:03:51 [restartedMain] INFO  c.b.s.SpringbootappApplication - Started SpringbootappApplication in 11.003 seconds (process running for 11.782)
+2026-04-15 11:04:07 [http-nio-5000-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api/v1] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-15 11:04:07 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-15 11:04:07 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2026-04-15 11:04:31 [http-nio-5000-exec-9] INFO  c.b.s.controllers.CartController - Cart Initialization Request: InitializeCart(userId=78344a56-f1e9-4c38-bf71-0057b252c842, retailerId=4edbaeb5-cb9f-48fa-b2d3-a0f99e805d8a, budget=100)
